@@ -1,0 +1,23 @@
+# base image on Universal Blue's ubuntu-toolbox, cf. https://github.com/ublue-os/toolboxes/pkgs/container/ubuntu-toolbox
+FROM ghcr.io/ublue-os/ubuntu-toolbox:latest
+
+# add standard labels, cf. https://specs.opencontainers.org/image-spec/annotations/#pre-defined-annotation-keys
+LABEL com.github.containers.toolbox="true" \
+      org.opencontainers.image.title="ubuntu-toolbox-salim" \
+      org.opencontainers.image.description="A cloud-native toolbox/distrobox image powered by Ubuntu, tailored to Salim's needs" \
+      org.opencontainers.image.authors="Salim B <containers@salim.space>" \
+      org.opencontainers.image.source="https://github.com/salim-b/boxkit" \
+      org.opencontainers.image.licenses="AGPL-3.0-or-later"
+
+# add binaries from other containers
+COPY --from=ghcr.io/tomwright/dasel  /usr/local/bin/dasel /usr/local/bin/dasel
+COPY --from=docker.io/mikefarah/yq   /usr/bin/yq          /usr/local/bin/yq
+
+# copy the setup scripts and package list
+COPY ../scripts/ubuntu-toolbox-salim.sh /
+COPY ../scripts/distrobox-shims.sh /
+COPY ../packages/ubuntu-toolbox-salim.packages /
+
+# run the setup scripts
+RUN chmod +x ubuntu-toolbox-salim.sh distrobox-shims.sh && /ubuntu-toolbox-salim.sh
+RUN rm /ubuntu-toolbox-salim.sh /distrobox-shims.sh /ubuntu-toolbox-salim.packages
