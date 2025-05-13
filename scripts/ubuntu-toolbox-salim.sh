@@ -15,11 +15,13 @@ curl --silent --location https://api.github.com/repos/wimpysworld/deb-get/releas
   | yq --input-format=json --unwrapScalar=true '.assets[] | select(.name | test("^deb-get_.*_all\\.deb$")).browser_download_url' \
   | wget --quiet --directory-prefix="/tmp" --input-file=- \
   && apt-get install --assume-yes /tmp/deb-get_*.deb \
-  && rm /tmp/deb-get_*.deb \
-  && rm -rf /var/lib/apt/lists/*
+  && rm /tmp/deb-get_*.deb
 
 # install additional packages via deb-get
 deb-get install pandoc quarto rstudio
+
+# remove APT cache
+rm -rf /var/lib/apt/lists/*
 
 # restore env vars
 unset -v DEBIAN_FRONTEND
