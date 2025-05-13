@@ -6,9 +6,16 @@ export DEBIAN_FRONTEND=noninteractive
 # symlink distrobox shims
 ./distrobox-shims.sh
 
+# add additional APT package sources
+curl --location --silent --output /etc/apt/trusted.gpg.d/rig.gpg https://rig.r-pkg.org/deb/rig.gpg
+sh -c 'echo "deb http://rig.r-pkg.org/deb rig main" > /etc/apt/sources.list.d/rig.list'
+
 # update the container and install packages via APT
 apt-get update && apt-get upgrade
 grep -v '^#' ./ubuntu-toolbox-salim.packages | xargs apt-get install --assume-yes
+
+# install R
+rig add release
 
 # install [deb-get](https://github.com/wimpysworld/deb-get)
 curl --silent --location https://api.github.com/repos/wimpysworld/deb-get/releases/latest \

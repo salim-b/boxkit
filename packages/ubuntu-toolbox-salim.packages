@@ -37,6 +37,8 @@ mdbtools
 pdftk-java
 ## required for 'reticulate' R pkg & dependants
 python3-dev python3-pip python3-pip-whl python3-setuptools python3-venv
+## rig, "the R Installation Manager", used to install R
+r-rig
 ## required by TinyTeX, cf. https://github.com/r-lib/actions/blob/v2-branch/setup-tinytex/src/setup-tinytex.ts#L46-L54 and https://rdrr.io/r/tools/texi2dvi.html
 texinfo
 ## required to be able to check HTML version of manual during R CMD check
