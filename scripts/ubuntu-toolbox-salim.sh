@@ -19,7 +19,7 @@ curl --silent --location https://api.github.com/repos/wimpysworld/deb-get/releas
   && rm -rf /var/lib/apt/lists/*
 
 # install additional packages via deb-get
-deb-get install pandoc quarto
+deb-get install pandoc quarto rstudio
 
 # restore env vars
 unset -v DEBIAN_FRONTEND
