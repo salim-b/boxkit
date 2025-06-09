@@ -31,7 +31,19 @@ deb-get install pandoc quarto rstudio
 rm -rf /var/lib/apt/lists/*
 
 # set locale settings
-update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 LC_MESSAGES=POSIX
+## useful doc: https://www.ibm.com/docs/en/integration-bus/latest?topic=locales-changing-your-locale-linux-systems
+update-locale \
+  LANG=en_US.UTF-8 \
+  LC_ADDRESS=de_CH.UTF-8 \
+  LC_MEASUREMENT=de_CH.UTF-8 \
+  LC_MESSAGES=POSIX \
+  LC_MONETARY=de_CH.UTF-8 \
+  LC_NUMERIC=de_CH.UTF-8 \
+  LC_PAPER=de_CH.UTF-8 \
+  LC_TELEPHONE=de_CH.UTF-8 \
+  LC_TIME=de_CH.UTF-8
+## we also need to overwrite the `LANG` env var
+export LANG=en_US.UTF-8
 
 # restore env vars
 unset -v DEBIAN_FRONTEND
