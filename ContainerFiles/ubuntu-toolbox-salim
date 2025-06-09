@@ -9,6 +9,9 @@ LABEL com.github.containers.toolbox="true" \
       org.opencontainers.image.source="https://github.com/salim-b/boxkit" \
       org.opencontainers.image.licenses="AGPL-3.0-or-later"
 
+# set language (was set to `C.UTF-8` before)
+ENV LANG=en_US.UTF-8
+
 # add binaries from other containers
 COPY --from=ghcr.io/tomwright/dasel  /usr/local/bin/dasel /usr/local/bin/dasel
 COPY --from=docker.io/mikefarah/yq   /usr/bin/yq          /usr/local/bin/yq
