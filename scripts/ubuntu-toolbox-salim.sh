@@ -35,14 +35,15 @@ rm -rf /var/lib/apt/lists/*
 locale-gen de_CH.UTF-8
 update-locale \
   LANG=en_US.UTF-8 \
-  LC_ADDRESS=de_CH.UTF-8 \
-  LC_MEASUREMENT=de_CH.UTF-8 \
-  LC_MESSAGES=POSIX \
-  LC_MONETARY=de_CH.UTF-8 \
+  LANGUAGE=en_US:en \
   LC_NUMERIC=de_CH.UTF-8 \
+  LC_TIME=de_CH.UTF-8 \
+  LC_MONETARY=de_CH.UTF-8 \
+  LC_MESSAGES=POSIX \
   LC_PAPER=de_CH.UTF-8 \
+  LC_ADDRESS=de_CH.UTF-8 \
   LC_TELEPHONE=de_CH.UTF-8 \
-  LC_TIME=de_CH.UTF-8
+  LC_MEASUREMENT=de_CH.UTF-8
 
 # restore env vars
 unset -v DEBIAN_FRONTEND
