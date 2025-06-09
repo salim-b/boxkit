@@ -30,5 +30,9 @@ deb-get install pandoc quarto rstudio
 # remove APT cache
 rm -rf /var/lib/apt/lists/*
 
+# set locale settings
+update-locale LANG=en_US.UTF-8 LC_MESSAGES=POSIX
+
 # restore env vars
 unset -v DEBIAN_FRONTEND
+
