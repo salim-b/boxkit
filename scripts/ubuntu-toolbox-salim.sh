@@ -32,6 +32,7 @@ rm -rf /var/lib/apt/lists/*
 
 # set locale settings
 ## useful doc: https://manpages.debian.org/unstable/manpages/locale.7.en.html
+locale-gen de_CH.UTF-8
 update-locale \
   LANG=en_US.UTF-8 \
   LC_ADDRESS=de_CH.UTF-8 \
