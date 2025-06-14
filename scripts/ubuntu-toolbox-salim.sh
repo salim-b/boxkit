@@ -8,7 +8,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 # add additional APT package sources
 curl --location --silent --output /etc/apt/trusted.gpg.d/rig.gpg https://rig.r-pkg.org/deb/rig.gpg
-sh -c 'echo "deb http://rig.r-pkg.org/deb rig main" > /etc/apt/sources.list.d/rig.list'
+echo "deb http://rig.r-pkg.org/deb rig main" > /etc/apt/sources.list.d/rig.list
 
 # update the container and install packages via APT
 apt-get update && apt-get upgrade
@@ -44,6 +44,9 @@ update-locale \
   LC_ADDRESS=de_CH.UTF-8 \
   LC_TELEPHONE=de_CH.UTF-8 \
   LC_MEASUREMENT=de_CH.UTF-8
+
+# set configuration to be executed at container runtime
+echo 'export R_LIBS_USER="$HOME/.local/lib/r/%p-library/%v"' > /etc/profile.d/user_config.sh
 
 # restore env vars
 unset -v DEBIAN_FRONTEND
