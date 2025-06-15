@@ -55,6 +55,7 @@ update-locale \
   LC_MEASUREMENT=de_CH.UTF-8
 
 # install custom RStudio theme
+mkdir --parents /etc/rstudio/themes
 curl --location \
      --output-dir /etc/rstudio/themes \
      --remote-name \
