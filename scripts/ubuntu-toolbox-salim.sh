@@ -50,6 +50,13 @@ update-locale \
   LC_TELEPHONE=de_CH.UTF-8 \
   LC_MEASUREMENT=de_CH.UTF-8
 
+# install custom RStudio theme
+curl --location \
+     --output-dir /etc/rstudio/themes \
+     --remote-name \
+     https://raw.githubusercontent.com/salim-b/rscodeio/interim-merge/inst/resources/rscodeio_tomorrow_night_bright.rstheme
+chmod a+r /etc/rstudio/themes/*
+
 # set configuration to be executed at container runtime
 echo 'export R_LIBS_USER="$HOME/.local/lib/r/%p-library/%v"' > /etc/profile.d/user_config.sh
 
