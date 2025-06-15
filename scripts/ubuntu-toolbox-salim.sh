@@ -17,6 +17,9 @@ curl --location \
      https://rig.r-pkg.org/deb/rig.gpg
 echo "deb http://rig.r-pkg.org/deb rig main" > /etc/apt/sources.list.d/rig.list
 
+# update DEB packages via APT
+apt-get update && apt-get upgrade --assume-yes
+
 # install TinyTeX's dummy DEB package to avoid `texlive-*` packages being automatically installed, cf. https://yihui.org/tinytex/faq/#faq-7
 curl --location \
      --remote-name \
@@ -25,8 +28,7 @@ curl --location \
   && apt-get install --assume-yes --no-install-recommends ./texlive-local.deb \
   && rm texlive-local.deb
 
-# install/update packages via APT
-apt-get update && apt-get upgrade
+# install additional DEB packages via APT
 grep --invert-match '^#' ./ubuntu-toolbox-salim.packages | xargs apt-get install --assume-yes
 
 # install R
@@ -39,7 +41,7 @@ curl --location --silent https://api.github.com/repos/wimpysworld/deb-get/releas
   && apt-get install --assume-yes /tmp/deb-get_*.deb \
   && rm /tmp/deb-get_*.deb
 
-# install additional packages via deb-get
+# install additional DEB packages via deb-get
 deb-get install pandoc quarto rstudio
 
 # remove APT cache
