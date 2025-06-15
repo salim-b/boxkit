@@ -9,9 +9,8 @@ LABEL com.github.containers.toolbox="true" \
       org.opencontainers.image.source="https://github.com/salim-b/boxkit" \
       org.opencontainers.image.licenses="AGPL-3.0-or-later"
 
-# add binaries from other containers
-COPY --from=ghcr.io/tomwright/dasel  /usr/local/bin/dasel /usr/local/bin/dasel
-COPY --from=docker.io/mikefarah/yq   /usr/bin/yq          /usr/local/bin/yq
+# add required binaries not available via APT directly from upstream container images
+COPY --from=docker.io/mikefarah/yq    /usr/bin/yq    /usr/local/bin/yq
 
 # copy the setup scripts and package list
 COPY ../scripts/ubuntu-toolbox-salim.sh /
