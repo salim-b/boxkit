@@ -1,4 +1,7 @@
-#!/bin/sh
+#!/bin/bash
+
+# exit immediately if a cmd fails or a var is undefined
+set -euo pipefail
 
 # set env vars
 export DEBIAN_FRONTEND=noninteractive
