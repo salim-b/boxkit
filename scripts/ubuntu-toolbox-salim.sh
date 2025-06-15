@@ -18,9 +18,12 @@ curl --location \
 echo "deb http://rig.r-pkg.org/deb rig main" > /etc/apt/sources.list.d/rig.list
 
 # install TinyTeX's dummy DEB package to avoid `texlive-*` packages being automatically installed, cf. https://yihui.org/tinytex/faq/#faq-7
-curl --silent --location "https://github.com/rstudio/tinytex-releases/releases/download/daily/texlive-local.deb" \
-    && apt-get install --assume-yes --no-install-recommends ./texlive-local.deb \
-    && rm texlive-local.deb
+curl --location \
+     --remote-name \
+     --silent \
+     "https://github.com/rstudio/tinytex-releases/releases/download/daily/texlive-local.deb" \
+  && apt-get install --assume-yes --no-install-recommends ./texlive-local.deb \
+  && rm texlive-local.deb
 
 # install/update packages via APT
 apt-get update && apt-get upgrade
