@@ -7,7 +7,11 @@ export DEBIAN_FRONTEND=noninteractive
 ./distrobox-shims.sh
 
 # add additional APT package sources
-curl --location --silent --output /etc/apt/trusted.gpg.d/rig.gpg https://rig.r-pkg.org/deb/rig.gpg
+curl --location \
+     --output-dir /etc/apt/trusted.gpg.d \
+     --remote-name \
+     --silent \
+     https://rig.r-pkg.org/deb/rig.gpg
 echo "deb http://rig.r-pkg.org/deb rig main" > /etc/apt/sources.list.d/rig.list
 
 # install TinyTeX's dummy DEB package to avoid `texlive-*` packages being automatically installed, cf. https://yihui.org/tinytex/faq/#faq-7
@@ -17,7 +21,7 @@ RUN wget "https://github.com/rstudio/tinytex-releases/releases/download/daily/te
 
 # install/update packages via APT
 apt-get update && apt-get upgrade
-grep -v '^#' ./ubuntu-toolbox-salim.packages | xargs apt-get install --assume-yes
+grep --invert-match '^#' ./ubuntu-toolbox-salim.packages | xargs apt-get install --assume-yes
 
 # install R
 rig add release
@@ -33,7 +37,7 @@ curl --silent --location https://api.github.com/repos/wimpysworld/deb-get/releas
 deb-get install pandoc quarto rstudio
 
 # remove APT cache
-rm -rf /var/lib/apt/lists/*
+rm --force --recursive /var/lib/apt/lists/*
 
 # set locale settings
 ## useful doc: https://manpages.debian.org/unstable/manpages/locale.7.en.html
@@ -58,6 +62,7 @@ curl --location \
 chmod a+r /etc/rstudio/themes/*
 
 # set configuration to be executed at container runtime
+# shellcheck disable=SC2016
 echo 'export R_LIBS_USER="$HOME/.local/lib/r/%p-library/%v"' > /etc/profile.d/user_config.sh
 
 # restore env vars
