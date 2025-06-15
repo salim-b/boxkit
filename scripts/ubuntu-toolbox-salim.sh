@@ -15,7 +15,7 @@ curl --location \
 echo "deb http://rig.r-pkg.org/deb rig main" > /etc/apt/sources.list.d/rig.list
 
 # install TinyTeX's dummy DEB package to avoid `texlive-*` packages being automatically installed, cf. https://yihui.org/tinytex/faq/#faq-7
-RUN wget "https://github.com/rstudio/tinytex-releases/releases/download/daily/texlive-local.deb" \
+curl --silent --location "https://github.com/rstudio/tinytex-releases/releases/download/daily/texlive-local.deb" \
     && apt-get install --assume-yes --no-install-recommends ./texlive-local.deb \
     && rm texlive-local.deb
 
@@ -27,9 +27,9 @@ grep --invert-match '^#' ./ubuntu-toolbox-salim.packages | xargs apt-get install
 rig add release
 
 # install [deb-get](https://github.com/wimpysworld/deb-get)
-curl --silent --location https://api.github.com/repos/wimpysworld/deb-get/releases/latest \
+curl --location --silent https://api.github.com/repos/wimpysworld/deb-get/releases/latest \
   | yq --input-format=json --unwrapScalar=true '.assets[] | select(.name | test("^deb-get_.*_all\\.deb$")).browser_download_url' \
-  | wget --quiet --directory-prefix="/tmp" --input-file=- \
+  | xargs --max-args=1 curl --location --output-dir /tmp --remote-name --silent \
   && apt-get install --assume-yes /tmp/deb-get_*.deb \
   && rm /tmp/deb-get_*.deb
 
