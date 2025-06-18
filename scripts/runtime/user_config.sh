@@ -6,6 +6,6 @@ export R_LIBS_USER="$HOME/.local/lib/r/%p-library/%v"
 # run TinyTeX and R install/update scripts
 if [ -z "$R_INIT_DONE" ]; then
     export R_INIT_DONE=1
-    Rscript install_tinytex.R
-    Rscript install_rpkgs.R
+    install_tinytex.R
+    install_rpkgs.R
 fi
