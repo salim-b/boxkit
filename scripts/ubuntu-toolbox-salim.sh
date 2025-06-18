@@ -70,9 +70,5 @@ curl --location \
      https://raw.githubusercontent.com/salim-b/rscodeio/interim-merge/inst/resources/rscodeio_tomorrow_night_bright.rstheme
 chmod a+r /etc/rstudio/themes/*
 
-# set configuration to be executed at container runtime
-# shellcheck disable=SC2016
-echo 'export R_LIBS_USER="$HOME/.local/lib/r/%p-library/%v"' > /etc/profile.d/user_config.sh
-
 # restore env vars
 unset -v DEBIAN_FRONTEND
