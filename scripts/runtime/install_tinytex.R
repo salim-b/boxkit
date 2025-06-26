@@ -1,5 +1,11 @@
 #!/usr/bin/env Rscript
 
+# ensure `~/.local/bin` exists so the TinyTex installer picks it up
+if (!dir.exists("~/.local/bin")) {
+  dir.create(path = "~/.local/bin",
+             recursive = TRUE)
+}
+
 # install tinytex package if not already done
 if (!nzchar(system.file(package = "tinytex"))) {
   install.packages(pkgs = "tinytex",
