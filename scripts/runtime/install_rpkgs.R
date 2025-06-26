@@ -66,7 +66,6 @@ c("anesrake",
   "hms",
   "htmltools",
   "htmlwidgets",
-  "httpgd",
   "httr2",
   "imager",
   "infer",
@@ -198,32 +197,33 @@ c("anesrake",
   setdiff(y = installed.packages()[, "Package"]) |>
   install.packages(dependencies = TRUE)
 
-# install/update packages not (yet) on CRAN directly from Git forges
+# install/update packages not (yet/anymore) on CRAN directly from Git forges
 ## third-party packages
-remotes::install_github(repo = c("mattflor/chorddiag",
-                                 "konradedgar/extraInserts",
-                                 "hrbrmstr/qrencoder",
-                                 "LudvigOlsen/splitChunk",
-                                 "politanch/swissdd",
-                                 "ManuelHentschel/vscDebugger"),
-                        dependencies = TRUE,
-                        upgrade = FALSE)
+pak::pkg_install(pkg = c("github::mattflor/chorddiag",
+                         "github::konradedgar/extraInserts",
+                         "github::nx10/httpgd",
+                         "github::hrbrmstr/qrencoder",
+                         "github::LudvigOlsen/splitChunk",
+                         "github::politanch/swissdd",
+                         "github::ManuelHentschel/vscDebugger"),
+                 ask = FALSE,
+                 dependencies = TRUE)
 ## own packages
-remotes::install_gitlab(repo = "salim_b/r/pkgs/salim",
-                        dependencies = TRUE,
-                        upgrade = FALSE)
+pak::pkg_install(pkg = "gitlab::salim_b/r/pkgs/salim",
+                 ask = FALSE,
+                 dependencies = TRUE)
 salim::update_rpkgs()
 salim::update_salims_pkgs()
 salim::update_zdaarau_pkgs(pkgs = c("rdb.report", "fokus", "swissevote"))
-remotes::install_gitlab(repo = "zdaarau/rpkgs/rdb@pg",
-                        dependencies = TRUE,
-                        upgrade = FALSE)
+pak::pkg_install(pkg = "gitlab::zdaarau/rpkgs/rdb@pg",
+                 ask = FALSE,
+                 dependencies = TRUE)
 
 ## third-party pkgs with notable (own) unmerged PRs for which we maintain an "interim" branch
-remotes::install_github(repo = c("salim-b/lintr", # TODO: remove once lintr 3.2.1+ is released
-                                 "salim-b/plotly.R@interim-merge",
-                                 "salim-b/quarto-r", # TODO: remove once quarto 1.4.5+ is released
-                                 "salim-b/roxygen2@interim-merge",
-                                 "salim-b/rprojroot@interim-merge",
-                                 "salim-b/rscodeio@interim-merge"),
-                        upgrade = FALSE)
+pak::pkg_install(pkg = c("github::salim-b/lintr", # TODO: remove once lintr 3.2.1+ is released
+                         "github::salim-b/plotly.R@interim-merge",
+                         "github::salim-b/quarto-r", # TODO: remove once quarto 1.4.5+ is released
+                         "github::salim-b/roxygen2@interim-merge",
+                         "github::salim-b/rprojroot@interim-merge",
+                         "github::salim-b/rscodeio@interim-merge"),
+                 ask = FALSE)
