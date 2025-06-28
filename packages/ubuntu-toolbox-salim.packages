@@ -13,6 +13,8 @@ cargo rustc
 cmake
 ## required for 'rJava' R pkg & dependants
 default-jre
+## required for 'terra' and 'sf' R pkgs
+gdal-bin
 ## required to build Fortran-based R packages
 gfortran
 ## required for Quarto/knitr's automatic PDF cropping, cf. https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/rmd/execute.R#L275-L282
