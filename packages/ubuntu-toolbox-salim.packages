@@ -31,6 +31,8 @@ librsvg2-bin librsvg2-dev
 libicu-dev
 ## required for 'units' R pkg
 libudunits2-dev
+## required for 'xslt' R pkg
+libxslt-dev
 ## required to read MS Access DBs via `Hmisc::mdb.get()` in R
 mdbtools
 ## required to correctly merge PDFs; R fn `qpdf::pdf_combine()` breaks hyperlinks
