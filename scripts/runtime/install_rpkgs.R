@@ -209,9 +209,10 @@ pak::pkg_install(pkg = c("github::mattflor/chorddiag",
                  ask = FALSE,
                  dependencies = TRUE)
 ## own packages
-pak::pkg_install(pkg = "gitlab::salim_b/r/pkgs/salim",
-                 ask = FALSE,
-                 dependencies = TRUE)
+### TODO: use `pak::pkg_install()` once https://github.com/r-lib/pak/issues/796 is resolved
+remotes::install_gitlab(repo = "salim_b/r/pkgs/salim",
+                        dependencies = TRUE,
+                        upgrade = FALSE)
 salim::update_rpkgs()
 salim::update_salims_pkgs()
 salim::update_zdaarau_pkgs(pkgs = c("rdb.report", "fokus", "swissevote"))
