@@ -216,9 +216,9 @@ remotes::install_gitlab(repo = "salim_b/r/pkgs/salim",
 salim::update_rpkgs()
 salim::update_salims_pkgs()
 salim::update_zdaarau_pkgs(pkgs = c("rdb.report", "fokus", "swissevote"))
-pak::pkg_install(pkg = "gitlab::zdaarau/rpkgs/rdb@pg",
-                 ask = FALSE,
-                 dependencies = TRUE)
+remotes::install_gitlab(repo = "zdaarau/rpkgs/rdb@pg",
+                        dependencies = TRUE,
+                        upgrade = FALSE)
 
 ## third-party pkgs with notable (own) unmerged PRs for which we maintain an "interim" branch
 pak::pkg_install(pkg = c("github::salim-b/lintr", # TODO: remove once lintr 3.2.1+ is released
