@@ -12,17 +12,21 @@ if (!nzchar(system.file(package = "tinytex"))) {
                    dependencies = TRUE)
 }
 
-# install the LaTeX distro TinyTeX if not already done or re-install if tlmgr is older than 2 months
-TINYTEX_DIR <- "~/.local/lib/tinytex"
+# install the LaTeX distro TinyTeX if not already done or re-install if tlmgr is older than 3 months
+tinytex_dir <- "~/.local/lib/tinytex"
+tinytex_bundle <- "TinyTeX"
 
-if (!nzchar(tinytex::tinytex_root(error = FALSE))) {
-  if (file.exists(file.path(TINYTEX_DIR, ".tinytex"))) {
-    tinytex::use_tinytex(from = TINYTEX_DIR)
-  } else {
-    tinytex::install_tinytex(force = TRUE,
-                             dir = TINYTEX_DIR,
-                             bundle = "TinyTeX")
+## install for the first time
+if (!file.exists(file.path(tinytex_dir, ".tinytex"))) {
+  tinytex::install_tinytex(force = TRUE,
+                           dir = tinytex_dir,
+                           bundle = tinytex_bundle)
+} else {
+  ## or register and reinstall if necessary
+  if (!nzchar(tinytex::tinytex_root(error = FALSE))) {
+    tinytex::use_tinytex(from = tinytex_dir)
   }
-} else if ((tinytex::tlmgr_version(format = "list")$tlmgr + 60L) < Sys.Date()) {
-  tinytex::reinstall_tinytex(bundle = "TinyTeX")
+  if (nzchar(tinytex::tinytex_root(error = FALSE)) && (as.Date(file.mtime(file.path(tinytex_dir, ".tinytex"))) + 90L) < Sys.Date()) {
+    tinytex::reinstall_tinytex(bundle = tinytex_bundle)
+  }
 }
