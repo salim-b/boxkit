@@ -36,7 +36,7 @@ rig add release
 
 # install [deb-get](https://github.com/wimpysworld/deb-get)
 curl --location --silent https://api.github.com/repos/wimpysworld/deb-get/releases/latest \
-  | yq --input-format=json --unwrapScalar=true '.assets[] | select(.name | test("^deb-get_.*_all\\.deb$")).browser_download_url' \
+  | yq --input-format=json --unwrapScalar=true '.assets[] | select(.name | test("^deb-get_.+_all\\.deb$")).browser_download_url' \
   | xargs --max-args=1 curl --location --output-dir /tmp --remote-name --silent \
   && apt-get install --assume-yes /tmp/deb-get_*.deb \
   && rm /tmp/deb-get_*.deb
