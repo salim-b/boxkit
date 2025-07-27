@@ -2,6 +2,7 @@
 apt-file
 gh
 sd
+software-properties-common
 whois
 
 # for specific purposes
