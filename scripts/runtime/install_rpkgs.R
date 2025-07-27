@@ -1,7 +1,8 @@
 #!/usr/bin/env Rscript
 
-# install commonly used R packages from CRAN
-c("anesrake",
+# install/update commonly used R packages from CRAN
+pkgs_cran <- c(
+  "anesrake",
   "anytime",
   "archive",
   "arrow",
@@ -194,9 +195,18 @@ c("anesrake",
   "yaml",
   "yardstick",
   "yesno",
-  "zip") |>
+  "zip"
+)
+
+## install pkgs the first time
+pkgs_cran |>
   setdiff(y = installed.packages()[, "Package"]) |>
   install.packages(dependencies = TRUE)
+
+## update pkgs (fails if run with `dependencies = TRUE`)
+pak::pkg_install(pkg = pkgs_cran,
+                 ask = FALSE,
+                 dependencies = FALSE)
 
 # install/update packages not (yet/anymore) on CRAN directly from Git forges
 ## third-party packages
