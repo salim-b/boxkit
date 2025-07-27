@@ -83,7 +83,7 @@ pkgs_cran <- c(
   "languageserver",
   "learnr",
   "lifecycle",
-  "lintr",
+#  "lintr", # dev version in use
   "listviewer",
   "lobstr",
   "lubridate",
@@ -108,14 +108,14 @@ pkgs_cran <- c(
   "pkgdown",
   "pkgload",
   "pkgsearch",
-  "plotly",
+#  "plotly", # dev version in use
   "plumber",
   "prettycode",
   "prettyunits",
   "purrr",
   "qpdf",
   "qs",
-  "quarto",
+#  "quarto", # dev version in use
   "R6",
   "ragg",
   "rcmdcheck",
@@ -137,9 +137,9 @@ pkgs_cran <- c(
   "rJava",
   "rlang",
   "rmarkdown",
-  "roxygen2",
+#  "roxygen2", # dev version in use
   "RPostgres",
-  "rprojroot",
+#  "rprojroot", # dev version in use
   "rsample",
   "rsconnect",
   "RSelenium",
@@ -232,10 +232,10 @@ remotes::install_gitlab(repo = "zdaarau/rpkgs/rdb@pg",
                         upgrade = FALSE)
 
 ## third-party pkgs with notable (own) unmerged PRs for which we maintain an "interim" branch
-pak::pkg_install(pkg = c("github::salim-b/lintr", # TODO: remove once lintr 3.2.1+ is released
+pak::pkg_install(pkg = c("github::salim-b/lintr", # TODO: switch to CRAN version once lintr 3.2.1+ is released
                          "github::salim-b/plotly.R@interim-merge",
-                         "github::salim-b/quarto-r", # TODO: remove once quarto 1.4.5+ is released
-                         "github::salim-b/roxygen2@interim-merge",
+                         "github::salim-b/quarto-r", # TODO: switch to CRAN version once quarto 1.4.5+ is released
+                         "github::salim-b/roxygen2@interim-merge", # switch to `r-lib/roxygen2` once https://github.com/r-lib/roxygen2/pull/1712 is merged
                          "github::salim-b/rprojroot@interim-merge",
                          "github::salim-b/rscodeio@interim-merge"),
                  ask = FALSE)
