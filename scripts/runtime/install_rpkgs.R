@@ -204,16 +204,9 @@ pkgs_cran <- c(
   "zip"
 )
 
-## install CRAN pkgs the first time
-pkgs_cran |>
-  setdiff(y = installed.packages()[, "Package"]) |>
-  install.packages(dependencies = TRUE)
-
-## update CRAN pkgs
-## TODO: remove sep install step above and use `dependencies = TRUE` once https://github.com/r-lib/pak/issues/804 is resolved
+## install/update CRAN pkgs
 pak::pkg_install(pkg = pkgs_cran,
-                 ask = FALSE,
-                 dependencies = FALSE)
+                 ask = FALSE)
 
 # install/update packages not (yet/anymore) on CRAN directly from Git forges
 ## third-party packages
@@ -224,8 +217,7 @@ pak::pkg_install(pkg = c("github::mattflor/chorddiag",
                          "github::LudvigOlsen/splitChunk",
                          "github::politanch/swissdd",
                          "github::ManuelHentschel/vscDebugger"),
-                 ask = FALSE,
-                 dependencies = TRUE)
+                 ask = FALSE)
 ## own packages
 ### TODO: use `pak::pkg_install()` once https://github.com/r-lib/pak/issues/796 is resolved
 remotes::install_gitlab(repo = "salim_b/r/pkgs/salim",
