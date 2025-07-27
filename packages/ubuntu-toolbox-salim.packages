@@ -27,35 +27,58 @@ texinfo
 tidy
 ## required to unpack password-protected RAR archives
 unrar
-## required by specific  # R pkg(s)
-##                       # --------
-chromium                 # chromote
-default-jdk              # rJava
-gdal-bin                 # terra, sf
-gsfonts                  # magick
-libabsl-dev              # s2
-libarchive-dev           # archive
-libfftw3-dev             # imager
-libfribidi-dev           # textshaping
-libgdal-dev              # tmaptools
-libgeos-dev              # tmaptools
-libgit2-dev              # gert
-libglpk-dev              # igraph
-libharfbuzz-dev          # textshaping
-libicu-dev               # stringi
-libmagick++-dev          # magick
-libnode-dev              # V8
-libpoppler-cpp-dev       # pdftools
-libproj-dev              # tmaptools
-librsvg2-bin             # rsvg
-librsvg2-dev             # rsvg
-libsasl2-dev             # mongolite
-libsecret-1-dev          # keyring
-libsodium-dev            # sodium
-libudunits2-dev          # units
-libxslt-dev              # xslt
-python3-dev              # reticulate
-python3-pip              # reticulate
-python3-pip-whl          # reticulate
-python3-setuptools       # reticulate
-python3-venv             # reticulate
+## required by specific R pkg(s)
+chromium
+### chromote
+default-jdk
+### rJava
+gdal-bin
+### terra, sf
+gsfonts
+### magick
+libabsl-dev
+### s2
+libarchive-dev
+### archive
+libfftw3-dev
+### imager
+libfribidi-dev
+### textshaping
+libgdal-dev
+### tmaptools
+libgeos-dev
+libgit2-dev
+### gert
+libglpk-dev
+### igraph
+libharfbuzz-dev
+### textshaping
+libicu-dev
+### stringi
+libmagick++-dev
+### magick
+libnode-dev
+### V8
+libpoppler-cpp-dev
+### pdftools
+libproj-dev
+### tmaptools
+librsvg2-bin
+### rsvg
+librsvg2-dev
+libsasl2-dev
+### mongolite
+libsecret-1-dev
+### keyring
+libsodium-dev
+### sodium
+libudunits2-dev
+### units
+libxslt-dev
+### xslt
+python3-dev
+### reticulate
+python3-pip
+python3-pip-whl
+python3-setuptools
+python3-venv
