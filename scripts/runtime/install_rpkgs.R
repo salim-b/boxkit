@@ -1,6 +1,12 @@
 #!/usr/bin/env Rscript
 
 # install/update commonly used R packages from CRAN
+## install pak via base R if necessary
+if (!nzchar(system.file(package = "pak"))) {
+  install.packages(pkgs = "pak")
+}
+
+## define CRAN pkgs
 pkgs_cran <- c(
   "anesrake",
   "anytime",
@@ -198,12 +204,13 @@ pkgs_cran <- c(
   "zip"
 )
 
-## install pkgs the first time
+## install CRAN pkgs the first time
 pkgs_cran |>
   setdiff(y = installed.packages()[, "Package"]) |>
   install.packages(dependencies = TRUE)
 
-## update pkgs (fails if run with `dependencies = TRUE`)
+## update CRAN pkgs
+## TODO: remove sep install step above and use `dependencies = TRUE` once https://github.com/r-lib/pak/issues/804 is resolved
 pak::pkg_install(pkg = pkgs_cran,
                  ask = FALSE,
                  dependencies = FALSE)
