@@ -44,6 +44,14 @@ curl --location --silent https://api.github.com/repos/wimpysworld/deb-get/releas
 # install additional DEB packages via deb-get
 deb-get install pandoc quarto rstudio
 
+# install goose directly from GitHub releases
+# TODO: switch to deb-get once https://github.com/wimpysworld/deb-get/pull/1475 is merged and released
+curl --location --silent https://api.github.com/repos/block/goose/releases/latest \
+  | yq --input-format=json --unwrapScalar=true '.assets[] | select(.name | test("^goose_.+_amd64\\.deb$")).browser_download_url' \
+  | xargs --max-args=1 curl --location --output-dir /tmp --remote-name --silent \
+  && apt-get install --assume-yes /tmp/goose_*.deb \
+  && rm /tmp/goose_*.deb
+
 # remove APT cache
 rm --force --recursive /var/lib/apt/lists/*
 
