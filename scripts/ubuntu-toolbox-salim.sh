@@ -42,7 +42,7 @@ curl --location --silent https://api.github.com/repos/wimpysworld/deb-get/releas
   && rm /tmp/deb-get_*.deb
 
 # install additional DEB packages via deb-get
-deb-get install pandoc quarto rstudio
+deb-get update && deb-get install pandoc quarto rstudio
 
 # install goose directly from GitHub releases
 # TODO: switch to deb-get once https://github.com/wimpysworld/deb-get/pull/1475 is merged and released
