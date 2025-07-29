@@ -1,5 +1,11 @@
 #!/usr/bin/env Rscript
 
+# define relevant vars
+tinytex_dir <- "~/.local/lib/tinytex"
+tinytex_bundle <- "TinyTeX"
+latex_pkgs <- c("nowidow",
+                "tocbibind")
+
 # ensure `~/.local/bin` exists so the TinyTex installer picks it up
 if (!dir.exists("~/.local/bin")) {
   dir.create(path = "~/.local/bin",
@@ -13,16 +19,13 @@ if (!nzchar(system.file(package = "tinytex"))) {
 }
 
 # install the LaTeX distro TinyTeX if not already done or re-install if tlmgr is older than 3 months
-tinytex_dir <- "~/.local/lib/tinytex"
-tinytex_bundle <- "TinyTeX"
-
-## install for the first time
+## install for the first time...
 if (!file.exists(file.path(tinytex_dir, ".tinytex"))) {
   tinytex::install_tinytex(force = TRUE,
                            dir = tinytex_dir,
                            bundle = tinytex_bundle)
 } else {
-  ## or register and reinstall if necessary
+  ## ...or register and reinstall if necessary
   if (!nzchar(tinytex::tinytex_root(error = FALSE))) {
     tinytex::use_tinytex(from = tinytex_dir)
   }
@@ -30,3 +33,6 @@ if (!file.exists(file.path(tinytex_dir, ".tinytex"))) {
     tinytex::reinstall_tinytex(bundle = tinytex_bundle)
   }
 }
+
+# install additional LaTeX packages (not part of the TinyTeX bundle)
+tinytex::tlmgr_install(pkgs = latex_pkgs)
