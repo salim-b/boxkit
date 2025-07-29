@@ -29,56 +29,56 @@ tidy
 ## required to unpack password-protected RAR archives
 unrar
 ## required by specific R pkg(s)
-chromium
 ### chromote
-default-jdk
+chromium
 ### rJava
-gdal-bin
+default-jdk
 ### terra, sf
+gdal-bin
+### magick
 gsfonts
-### magick
-libabsl-dev
 ### s2
-libarchive-dev
+libabsl-dev
 ### archive
-libfftw3-dev
+libarchive-dev
 ### imager
+libfftw3-dev
+### textshaping
 libfribidi-dev
-### textshaping
+### tmaptools
 libgdal-dev
-### tmaptools
 libgeos-dev
-libgit2-dev
 ### gert
-libglpk-dev
+libgit2-dev
 ### igraph
-libharfbuzz-dev
+libglpk-dev
 ### textshaping
-libicu-dev
+libharfbuzz-dev
 ### stringi
-libmagick++-dev
+libicu-dev
 ### magick
-libnode-dev
+libmagick++-dev
 ### V8
-libpoppler-cpp-dev
+libnode-dev
 ### pdftools
-libproj-dev
+libpoppler-cpp-dev
 ### tmaptools
-librsvg2-bin
+libproj-dev
 ### rsvg
+librsvg2-bin
 librsvg2-dev
-libsasl2-dev
 ### mongolite
-libsecret-1-dev
+libsasl2-dev
 ### keyring
-libsodium-dev
+libsecret-1-dev
 ### sodium
-libudunits2-dev
+libsodium-dev
 ### units
-libxslt-dev
+libudunits2-dev
 ### xslt
-python3-dev
+libxslt-dev
 ### reticulate
+python3-dev
 python3-pip
 python3-pip-whl
 python3-setuptools
