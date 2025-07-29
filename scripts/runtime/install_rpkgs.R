@@ -121,7 +121,7 @@ pkgs_cran <- c(
   "purrr",
   "qpdf",
   "qs",
-  "quarto"
+  "quarto",
   "R6",
   "ragg",
   "rcmdcheck",
