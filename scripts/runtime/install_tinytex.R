@@ -15,7 +15,7 @@ if (!dir.exists("~/.local/bin")) {
 # install tinytex package if not already done
 if (!nzchar(system.file(package = "tinytex"))) {
   install.packages(pkgs = "tinytex",
-                   dependencies = TRUE)
+                   repos = "https://cloud.r-project.org")
 }
 
 # install the LaTeX distro TinyTeX if not already done or re-install if tlmgr is older than 3 months

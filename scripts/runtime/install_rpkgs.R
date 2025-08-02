@@ -1,9 +1,17 @@
 #!/usr/bin/env Rscript
+#
+# NOTES
+#
+# - `install.packages()` with a P3M binary `repos` URL results in corrupted package installations due to surplus package name subdirectories inside the library
+#   path; the underlying reason is still unknown to us; the issue only occurs in Distrobox containers and is likely related to some unwanted host-container
+#   interaction; `pak::pkg_install()` is not affected by this issue, but `remotes::install_*()` is when it install dependencies for which it relies on
+#   `install.packages()`
 
 # install/update commonly used R packages from CRAN
 ## install pak via base R if necessary
 if (!nzchar(system.file(package = "pak"))) {
-  install.packages(pkgs = "pak")
+  install.packages(pkgs = "pak",
+                   repos = "https://cloud.r-project.org")
 }
 
 ## define CRAN pkgs
