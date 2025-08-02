@@ -23,7 +23,8 @@ if (!nzchar(system.file(package = "tinytex"))) {
 if (!file.exists(file.path(tinytex_dir, ".tinytex"))) {
   tinytex::install_tinytex(force = TRUE,
                            dir = tinytex_dir,
-                           bundle = tinytex_bundle)
+                           bundle = tinytex_bundle,
+                           extra_packages = latex_pkgs)
 } else {
   ## ...or register and reinstall if necessary
   if (!nzchar(tinytex::tinytex_root(error = FALSE))) {
@@ -34,5 +35,3 @@ if (!file.exists(file.path(tinytex_dir, ".tinytex"))) {
   }
 }
 
-# install additional LaTeX packages (not part of the TinyTeX bundle)
-tinytex::tlmgr_install(pkgs = latex_pkgs)
