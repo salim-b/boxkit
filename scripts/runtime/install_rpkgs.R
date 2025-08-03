@@ -5,7 +5,17 @@
 # - `install.packages()` with a P3M binary `repos` URL results in corrupted package installations due to surplus package name subdirectories inside the library
 #   path; the underlying reason is still unknown to us; the issue only occurs in Distrobox containers and is likely related to some unwanted host-container
 #   interaction; `pak::pkg_install()` is not affected by this issue, but `remotes::install_*()` is when it install dependencies for which it relies on
-#   `install.packages()`
+#   `install.packages()`.
+#
+#   The underlying issue is with `R CMD INSTALL` (invoked by `install.packages()`). A concise way to reproduce the issue and inspect the system calls made is:
+#
+#   ```sh
+#   mkdir testlib
+#   curl --location --remote-name --header "User-Agent: R/4.5.1 R (4.5.1 x86_64-pc-linux-gnu x86_64 linux-gnu)" https://p3m.dev/cran/__linux__/noble/latest/src/contrib/checkmate_2.3.2.tar.gz
+#   strace -f -e trace=mkdir,rename R CMD INSTALL -l ~/testlib checkmate_2.3.2.tar.gz 2>&1 | tee install-strace.log
+#   ```
+#
+#   LLM conversation trying to debug this (without solution): https://chatgpt.com/share/688eb500-66e0-8006-b704-666a2d85ee3e
 
 # install/update commonly used R packages from CRAN
 ## install pak via base R if necessary
