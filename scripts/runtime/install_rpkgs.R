@@ -79,6 +79,7 @@ pkgs_cran <- c(
   "ggplot2",
   "ggstream",
   "gh",
+  "git2r",
   "gitlabr",
   "glue",
   "googledrive",
