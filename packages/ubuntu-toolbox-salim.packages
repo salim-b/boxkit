@@ -48,7 +48,7 @@ libfribidi-dev
 ### tmaptools
 libgdal-dev
 libgeos-dev
-### gert
+### gert, git2r
 libgit2-dev
 ### igraph
 libglpk-dev
