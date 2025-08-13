@@ -23,7 +23,9 @@ COPY ../scripts/ubuntu-toolbox-salim.sh /
 COPY ../packages/ubuntu-toolbox-salim.packages /
 
 # run the setup scripts
-RUN chmod +x ubuntu-toolbox-salim.sh distrobox-shims.sh && /ubuntu-toolbox-salim.sh
+RUN chmod +x ubuntu-toolbox-salim.sh distrobox-shims.sh \
+  && /distrobox-shims.sh \
+  && /ubuntu-toolbox-salim.sh
 
 # install the runtime scripts
 RUN install --target-directory=/usr/local/bin \

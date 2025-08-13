@@ -6,9 +6,6 @@ set -euo pipefail
 # set env vars
 export DEBIAN_FRONTEND=noninteractive
 
-# symlink distrobox shims
-./distrobox-shims.sh
-
 # add additional APT package sources
 curl --location \
      --output-dir /etc/apt/trusted.gpg.d \
