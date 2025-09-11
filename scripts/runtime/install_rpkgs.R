@@ -77,6 +77,7 @@ pkgs_cran <- c(
   "ggforce",
   "ggiraph",
   "ggplot2",
+  "ggrepel",
   "ggstream",
   "gh",
   "git2r",
