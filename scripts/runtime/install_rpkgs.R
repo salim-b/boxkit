@@ -4,7 +4,7 @@
 #
 # - `install.packages()` with a P3M binary `repos` URL results in corrupted package installations due to surplus package name subdirectories inside the library
 #   path; the underlying reason is still unknown to us; the issue only occurs in Distrobox containers and is likely related to some unwanted host-container
-#   interaction; `pak::pkg_install()` is not affected by this issue, but `remotes::install_*()` is when it install dependencies for which it relies on
+#   interaction; `pak::pkg_install()` is not affected by this issue, but `remotes::install_*()` is when it installs dependencies for which it relies on
 #   `install.packages()`.
 #
 #   The underlying issue is with `R CMD INSTALL` (invoked by `install.packages()`). A concise way to reproduce the issue and inspect the system calls made is:
@@ -175,6 +175,7 @@ pkgs_cran <- c(
   "rvest",
   "s2",
   "s3fs",
+  "S7",
   "servr",
   "sessioninfo",
   "sf",
