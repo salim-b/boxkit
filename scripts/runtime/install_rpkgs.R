@@ -65,6 +65,7 @@ pkgs_cran <- c(
   "diffviewer",
   "digest",
   "dm",
+  "dbplyr",
   "dplyr",
   "dqrng",
   "DT",
