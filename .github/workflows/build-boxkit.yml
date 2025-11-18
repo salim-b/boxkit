@@ -29,7 +29,7 @@ jobs:
       matrix:
         containerfile: 
           - ubuntu-toolbox-salim
-    steps:        
+    steps:
       # Remove unused stuff to free disk space
       - name: Free Disk Space
         uses: endersonmenezes/free-disk-space@6c4664f43348c8c7011b53488d5ca65e9fc5cd1a
@@ -39,7 +39,8 @@ jobs:
           remove_haskell: true
           remove_tool_cache: false
           remove_swap: true
-          remove_packages: "azure-cli google-cloud-cli microsoft-edge-stable google-chrome-stable firefox postgresql* temurin-* *llvm* mysql* dotnet-sdk-*"
+          # enable to free another ~5 GiB for the price of another ~90s delay
+          # remove_packages: "azure-cli google-cloud-cli microsoft-edge-stable google-chrome-stable firefox postgresql* temurin-* *llvm* mysql* dotnet-sdk-*"
           remove_packages_one_command: true
           remove_folders: "/usr/share/swift /usr/share/miniconda /usr/share/az* /usr/local/lib/node_modules /usr/local/share/chromium /usr/local/share/powershell /usr/local/julia /usr/local/aws-cli /usr/local/aws-sam-cli /usr/share/gradle"
           rm_cmd: "rmz"  # see https://github.com/SUPERCILEX/fuc for more info
