@@ -29,7 +29,19 @@ jobs:
       matrix:
         containerfile: 
           - ubuntu-toolbox-salim
-    steps:
+    steps:        
+      # Remove unused stuff to free disk space
+      - name: Free Disk Space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
       # Clone code to runner
       - name: Checkout
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
