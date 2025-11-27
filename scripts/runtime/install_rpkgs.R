@@ -111,7 +111,7 @@ pkgs_cran <- c(
   "languageserver",
   "learnr",
   "lifecycle",
-#  "lintr", # dev version in use
+  "lintr",
   "listviewer",
   "lobstr",
   "lubridate",
@@ -254,8 +254,7 @@ remotes::install_gitlab(repo = "zdaarau/rpkgs/rdb@pg",
                         upgrade = FALSE)
 
 ## third-party pkgs with notable (own) unmerged PRs for which we maintain an "interim" branch
-pak::pkg_install(pkg = c("github::salim-b/lintr", # TODO: switch to CRAN version once lintr 3.2.1+ is released
-                         "github::salim-b/plotly.R@interim-merge",
+pak::pkg_install(pkg = c("github::salim-b/plotly.R@interim-merge",
                          "github::salim-b/roxygen2@interim-merge", # switch to `r-lib/roxygen2` once https://github.com/r-lib/roxygen2/pull/1712 is merged
                          "github::salim-b/rprojroot@interim-merge",
                          "github::salim-b/rscodeio@interim-merge"),
