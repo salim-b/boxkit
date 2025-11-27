@@ -51,6 +51,7 @@ pkgs_cran <- c(
   "crosstalk",
   "crul",
   "curl",
+  "cyclocomp",
   "daff",
   "datapasta",
   "DBI",
