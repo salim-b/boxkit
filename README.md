@@ -1,5 +1,7 @@
 # boxkit
 
+[![build-boxkit](https://github.com/salim-b/boxkit/actions/workflows/build-boxkit.yml/badge.svg)](https://github.com/salim-b/boxkit/actions/workflows/build-boxkit.yml)
+
 ## What is boxkit ?
 
 boxkit is a set of GitHub actions and skeleton files to build custom toolbox and distrobox images. Basically, clone this repo, make any changes you need, and then generate your custom images.
