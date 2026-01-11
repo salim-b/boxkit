@@ -1,6 +1,7 @@
 # general utilities
 apt-file
 gh
+libpam-gnome-keyring
 sd
 software-properties-common
 whois
