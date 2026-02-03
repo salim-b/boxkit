@@ -2,7 +2,8 @@
 apt-file
 gh
 git-lfs
-libpam-gnome-keyring # failed attempt to make already-unlocked host keyring accessible in container
+# (attempt to make already-unlocked host keyring accessible in container)
+libpam-gnome-keyring
 sd
 software-properties-common
 whois
