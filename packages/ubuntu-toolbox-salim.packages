@@ -11,14 +11,16 @@ whois
 # for specific purposes
 ## required to build DEB packages
 build-essential checkinstall
-## required to install Rust-based R pkgs like 'heck' from source
+## required i.a. to install Rust-based R pkgs like 'heck' from source
 cargo rustc
-## required to build certain C/C++-based R pkgs like 'nloptr'
+## required i.a. to build certain C/C++-based R pkgs like 'nloptr'
 cmake
-## required to build Fortran-based R packages
+## required i.a. to build Fortran-based R packages
 gfortran
 ## required for Quarto/knitr's automatic PDF cropping, cf. https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/rmd/execute.R#L275-L282
 ghostscript
+## required to build libadwaita apps like actioneer-gtk
+gtk4-devel graphene-devel gcc libadwaita-devel pkg-config openssl-devel libglvnd-gles mesa-dri-drivers
 ## required to read MS Access DBs via `Hmisc::mdb.get()` in R
 mdbtools
 ## required to correctly merge PDFs; R fn `qpdf::pdf_combine()` breaks hyperlinks
