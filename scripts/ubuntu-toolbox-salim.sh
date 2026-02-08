@@ -41,9 +41,13 @@ curl --location --silent https://api.github.com/repos/wimpysworld/deb-get/releas
 # install additional DEB packages via deb-get
 deb-get update && deb-get install \
   goose \
+  mise \
   pandoc \
   quarto \
   rstudio
+
+# install additional CLI tools via mise
+MISE_DATA_DIR=/opt/mise mise use --global github:block/goose
 
 # remove APT cache
 rm --force --recursive /var/lib/apt/lists/*
