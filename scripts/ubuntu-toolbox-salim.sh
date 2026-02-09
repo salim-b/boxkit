@@ -33,7 +33,7 @@ curl --location \
      --remote-name \
      --silent \
      "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" \
-  && apt-get install --assume-yes libxss1 libappindicator1 libindicator7 ./google-chrome-stable_current_amd64.deb \
+  && apt-get install --assume-yes ./google-chrome-stable_current_amd64.deb \
   && rm google-chrome-stable_current_amd64.deb
 
 # install R
