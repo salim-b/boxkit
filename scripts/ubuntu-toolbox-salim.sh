@@ -28,11 +28,6 @@ curl --location \
 # install additional DEB packages via APT
 grep --invert-match '^#' ./ubuntu-toolbox-salim.packages | xargs apt-get install --assume-yes
 
-# install additional snap packages
-systemctl enable snapd
-systemctl start snapd
-snap install chromium
-
 # install R
 rig add release
 
