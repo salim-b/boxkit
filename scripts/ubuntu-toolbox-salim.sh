@@ -28,6 +28,14 @@ curl --location \
 # install additional DEB packages via APT
 grep --invert-match '^#' ./ubuntu-toolbox-salim.packages | xargs apt-get install --assume-yes
 
+# install Google Chrome
+curl --location \
+     --remote-name \
+     --silent \
+     "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" \
+  && apt-get install --assume-yes libxss1 libappindicator1 libindicator7 ./google-chrome-stable_current_amd64.deb \
+  && rm google-chrome-stable_current_amd64.deb
+
 # install R
 rig add release
 
