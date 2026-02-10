@@ -53,6 +53,12 @@ deb-get update && deb-get install \
   quarto \
   rstudio
 
+# install dra
+curl --location --silent 'https://api.github.com/repos/devmatteini/dra/releases/latest' \
+  | yq -r '.assets[] | select(.name | test("dra_.*_amd64\.deb")) | .browser_download_url' \
+  | xargs --max-args=1 curl --location --remote-name --silent \
+  && apt-get install --assume-yes 
+
 # remove APT cache
 rm --force --recursive /var/lib/apt/lists/*
 
