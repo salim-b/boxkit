@@ -28,18 +28,10 @@ curl --location \
 # install additional DEB packages via APT
 grep --invert-match '^#' ./ubuntu-toolbox-salim.packages | xargs apt-get install --assume-yes
 
-# install Google Chrome
-curl --location \
-     --remote-name \
-     --silent \
-     "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" \
-  && apt-get install --assume-yes ./google-chrome-stable_current_amd64.deb \
-  && rm google-chrome-stable_current_amd64.deb
-
 # install R
 rig add release
 
-# install [deb-get](https://github.com/wimpysworld/deb-get)
+# install deb-get
 curl --location --silent 'https://api.github.com/repos/wimpysworld/deb-get/releases/latest' \
   | yq --input-format=json --unwrapScalar=true '.assets[] | select(.name | test("^deb-get_.+_all\\.deb$")).browser_download_url' \
   | xargs --max-args=1 curl --location --remote-name --silent \
@@ -58,6 +50,20 @@ curl --location --silent 'https://api.github.com/repos/devmatteini/dra/releases/
   | yq -r '.assets[] | select(.name | test("dra_.*_amd64\.deb")) | .browser_download_url' \
   | xargs --max-args=1 curl --location --remote-name --silent \
   && apt-get install --assume-yes 
+
+# install additional DEB packages downloaded via dra
+## Ungoogled Chromium
+dra download --select "ungoogled-chromium_*_amd64.deb" berkley4/ungoogled-chromium-debian \
+  && apt-get install ungoogled-chromium_*_amd64.deb
+dra download --select "ungoogled-chromium-driver_*_amd64.deb" berkley4/ungoogled-chromium-debian \
+  && apt-get install ungoogled-chromium-driver_*_amd64.deb
+### we also need to install an AppArmor profile, cf. https://github.com/berkley4/ungoogled-chromium-debian#apparmor-profile-affects-ubuntu-2404-and-later
+curl --location \
+     --output-dir /etc/apparmor.d \
+     --remote-name \
+     --silent \
+     'https://raw.githubusercontent.com/berkley4/ungoogled-chromium-debian/refs/heads/unstable/debian/etc/apparmor.d/usr.bin.chrome'
+chmod 0644 /etc/apparmor.d/usr.bin.chrome
 
 # remove APT cache
 rm --force --recursive /var/lib/apt/lists/*
