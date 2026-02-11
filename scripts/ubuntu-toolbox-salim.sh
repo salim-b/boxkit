@@ -53,17 +53,26 @@ curl --location --silent 'https://api.github.com/repos/devmatteini/dra/releases/
 
 # install additional DEB packages downloaded via dra
 ## Ungoogled Chromium
-dra download --select "ungoogled-chromium_*_amd64.deb" berkley4/ungoogled-chromium-debian \
-  && apt-get install ./ungoogled-chromium_*_amd64.deb
-dra download --select "ungoogled-chromium-driver_*_amd64.deb" berkley4/ungoogled-chromium-debian \
-  && apt-get install ./ungoogled-chromium-driver_*_amd64.deb
-### we also need to install an AppArmor profile, cf. https://github.com/berkley4/ungoogled-chromium-debian#apparmor-profile-affects-ubuntu-2404-and-later
+## COMMENTED OUT since Ubuntu jammy doesn't include new enough dependencies
+# dra download --select "ungoogled-chromium_*_amd64.deb" berkley4/ungoogled-chromium-debian \
+#  && apt-get install ./ungoogled-chromium_*_amd64.deb
+# dra download --select "ungoogled-chromium-driver_*_amd64.deb" berkley4/ungoogled-chromium-debian \
+#  && apt-get install ./ungoogled-chromium-driver_*_amd64.deb
+# ## we also need to install an AppArmor profile, cf. https://github.com/berkley4/ungoogled-chromium-debian#apparmor-profile-affects-ubuntu-2404-and-later
+# curl --location \
+#     --output-dir /etc/apparmor.d \
+#     --remote-name \
+#     --silent \
+#     'https://raw.githubusercontent.com/berkley4/ungoogled-chromium-debian/refs/heads/unstable/debian/etc/apparmor.d/usr.bin.chrome'
+# chmod 0644 /etc/apparmor.d/usr.bin.chrome
+
+# install Google Chrome (while we can't use Ungoogled Chromium)
 curl --location \
-     --output-dir /etc/apparmor.d \
      --remote-name \
      --silent \
-     'https://raw.githubusercontent.com/berkley4/ungoogled-chromium-debian/refs/heads/unstable/debian/etc/apparmor.d/usr.bin.chrome'
-chmod 0644 /etc/apparmor.d/usr.bin.chrome
+     "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" \
+  && apt-get install --assume-yes ./google-chrome-stable_current_amd64.deb \
+  && rm google-chrome-stable_current_amd64.deb
 
 # remove APT cache
 rm --force --recursive /var/lib/apt/lists/*
