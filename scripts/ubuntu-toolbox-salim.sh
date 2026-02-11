@@ -35,7 +35,7 @@ rig add release
 curl --location --silent 'https://api.github.com/repos/wimpysworld/deb-get/releases/latest' \
   | yq --input-format=json --unwrapScalar=true '.assets[] | select(.name | test("^deb-get_.+_all\\.deb$")).browser_download_url' \
   | xargs --max-args=1 curl --location --remote-name --silent \
-  && apt-get install --assume-yes deb-get_*.deb \
+  && apt-get install --assume-yes ./deb-get_*.deb \
   && rm deb-get_*.deb
 
 # install additional DEB packages via deb-get
@@ -49,14 +49,14 @@ deb-get update && deb-get install \
 curl --location --silent 'https://api.github.com/repos/devmatteini/dra/releases/latest' \
   | yq -r '.assets[] | select(.name | test("dra_.*_amd64\.deb")) | .browser_download_url' \
   | xargs --max-args=1 curl --location --remote-name --silent \
-  && apt-get install --assume-yes 
+  && apt-get install --assume-yes ./dra_*_amd64.deb
 
 # install additional DEB packages downloaded via dra
 ## Ungoogled Chromium
 dra download --select "ungoogled-chromium_*_amd64.deb" berkley4/ungoogled-chromium-debian \
-  && apt-get install ungoogled-chromium_*_amd64.deb
+  && apt-get install ./ungoogled-chromium_*_amd64.deb
 dra download --select "ungoogled-chromium-driver_*_amd64.deb" berkley4/ungoogled-chromium-debian \
-  && apt-get install ungoogled-chromium-driver_*_amd64.deb
+  && apt-get install ./ungoogled-chromium-driver_*_amd64.deb
 ### we also need to install an AppArmor profile, cf. https://github.com/berkley4/ungoogled-chromium-debian#apparmor-profile-affects-ubuntu-2404-and-later
 curl --location \
      --output-dir /etc/apparmor.d \
