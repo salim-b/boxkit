@@ -28,6 +28,19 @@ curl --location \
 # install additional DEB packages via APT
 grep --invert-match '^#' ./ubuntu-toolbox-salim.packages | xargs apt-get install --assume-yes
 
+# install Rust
+mkdir -p /opt/rust \
+  && curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh-s -- -y --no-modify-path \
+  && chmod -R a+w /opt/rust
+  && rustup component add \
+    clippy \
+    llvm-tools \
+    miri \
+    rust-analyzer \
+    rust-src \
+    rustfmt \
+  && rustup default stable
+
 # install R
 rig add release
 

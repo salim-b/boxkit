@@ -12,7 +12,8 @@ whois
 ## required i.a. to build C/C++ code
 build-essential checkinstall cmake gcc pkg-config
 ## required i.a. to install Rust-based R pkgs like 'heck' from source
-cargo rustc
+## DISABLED; we install latest stable `rustup` instead
+# cargo rustc
 ## required i.a. to build Fortran-based R packages
 gfortran
 ## required for Quarto/knitr's automatic PDF cropping, cf. https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/rmd/execute.R#L275-L282
