@@ -30,7 +30,7 @@ grep --invert-match '^#' ./ubuntu-toolbox-salim.packages | xargs apt-get install
 
 # install Rust
 mkdir -p /opt/rust \
-  && curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh-s -- -y --no-modify-path \
+  && curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path \
   && chmod -R a+w /opt/rust
   && rustup component add \
     clippy \
