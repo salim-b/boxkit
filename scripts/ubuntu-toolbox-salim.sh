@@ -62,7 +62,8 @@ deb-get update && deb-get install \
 curl --location --silent 'https://api.github.com/repos/devmatteini/dra/releases/latest' \
   | yq -r '.assets[] | select(.name | test("dra_.*_amd64\.deb")) | .browser_download_url' \
   | xargs --max-args=1 curl --location --remote-name --silent \
-  && apt-get install --assume-yes ./dra_*_amd64.deb
+  && apt-get install --assume-yes ./dra_*_amd64.deb \
+  && rm dra_*_amd64.deb
 
 # install additional DEB packages downloaded via dra
 ## Ungoogled Chromium
