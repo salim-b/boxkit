@@ -35,7 +35,6 @@ mkdir -p /opt/rust \
   && rustup component add \
     clippy \
     llvm-tools \
-    miri \
     rust-analyzer \
     rust-src \
     rustfmt \
