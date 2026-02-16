@@ -88,6 +88,9 @@ curl --location \
   && apt-get install --assume-yes ./google-chrome-stable_current_amd64.deb \
   && rm google-chrome-stable_current_amd64.deb
 
+# install additional CLI tools via mise
+mise use --global github:casey/just
+
 # remove APT cache
 rm --force --recursive /var/lib/apt/lists/*
 
