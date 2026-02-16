@@ -24,8 +24,9 @@ COPY ../packages/ubuntu-toolbox-salim.packages /
 
 # set environment variables
 ENV RUSTUP_HOME=/opt/rust/rustup \
-    CARGO_HOME=/opt/rust/cargo
-ENV PATH=$CARGO_HOME/bin:$PATH
+    CARGO_HOME=/opt/rust/cargo \
+    MISE_DATA_DIR=/opt/mise
+ENV PATH=$CARGO_HOME/bin:$MISE_DATA_DIR/shims:$PATH
 
 # run the setup scripts
 RUN chmod +x ubuntu-toolbox-salim.sh distrobox-shims.sh \

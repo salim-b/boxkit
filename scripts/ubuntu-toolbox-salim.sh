@@ -54,6 +54,7 @@ curl --location --silent 'https://api.github.com/repos/wimpysworld/deb-get/relea
 # install additional DEB packages via deb-get
 deb-get update && deb-get install \
   goose \
+  mise \
   pandoc \
   quarto \
   rstudio
