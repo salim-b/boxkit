@@ -90,6 +90,8 @@ curl --location \
 
 # install additional CLI tools via mise
 mise use --global github:casey/just
+## set root user's mise config system-wide
+mv "$HOME/.config/mise/config.toml" /etc/mise/config.toml
 
 # remove APT cache
 rm --force --recursive /var/lib/apt/lists/*
