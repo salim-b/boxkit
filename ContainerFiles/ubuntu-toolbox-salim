@@ -9,6 +9,15 @@ LABEL com.github.containers.toolbox="true" \
       org.opencontainers.image.source="https://github.com/salim-b/boxkit" \
       org.opencontainers.image.licenses="AGPL-3.0-or-later"
 
+# define arguments and set environment variables
+ARG GITHUB_TOKEN
+ENV RUSTUP_HOME=/opt/rust/rustup \
+    CARGO_HOME=/opt/rust/cargo \
+    DEBGET_TOKEN=$GITHUB_TOKEN \
+    GITHUB_TOKEN=$GITHUB_TOKEN \
+    MISE_DATA_DIR=/opt/mise
+ENV PATH=$CARGO_HOME/bin:$MISE_DATA_DIR/shims:$PATH
+
 # add required binaries not available via APT directly from upstream container images
 COPY --from=docker.io/mikefarah/yq    /usr/bin/yq    /usr/local/bin/yq
 
@@ -21,14 +30,6 @@ COPY ../scripts/runtime/install_tinytex.R /
 COPY ../scripts/distrobox-shims.sh /
 COPY ../scripts/ubuntu-toolbox-salim.sh /
 COPY ../packages/ubuntu-toolbox-salim.packages /
-
-# set arguments and environment variables
-ARG GITHUB_TOKEN
-ENV RUSTUP_HOME=/opt/rust/rustup \
-    CARGO_HOME=/opt/rust/cargo \
-    GITHUB_TOKEN=$GITHUB_TOKEN \
-    MISE_DATA_DIR=/opt/mise
-ENV PATH=$CARGO_HOME/bin:$MISE_DATA_DIR/shims:$PATH
 
 # run the setup scripts
 RUN chmod +x ubuntu-toolbox-salim.sh distrobox-shims.sh \
