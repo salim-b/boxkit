@@ -73,6 +73,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           oci: true
           build-args: |
+            DEBGET_TOKEN=${{ secrets.GITHUB_TOKEN }}
             GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
           
       # Workaround bug where capital letters in your GitHub username make it impossible to push to GHCR.
