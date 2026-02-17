@@ -22,9 +22,11 @@ COPY ../scripts/distrobox-shims.sh /
 COPY ../scripts/ubuntu-toolbox-salim.sh /
 COPY ../packages/ubuntu-toolbox-salim.packages /
 
-# set environment variables
+# set arguments and environment variables
+ARG GITHUB_TOKEN
 ENV RUSTUP_HOME=/opt/rust/rustup \
     CARGO_HOME=/opt/rust/cargo \
+    GITHUB_TOKEN=$GITHUB_TOKEN \
     MISE_DATA_DIR=/opt/mise
 ENV PATH=$CARGO_HOME/bin:$MISE_DATA_DIR/shims:$PATH
 
