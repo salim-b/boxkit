@@ -29,8 +29,7 @@ COPY ../scripts/ubuntu-toolbox-salim.sh /
 COPY ../packages/ubuntu-toolbox-salim.packages /
 
 # run the setup scripts
-RUN --mount=type=secret,id=GITHUB_TOKEN \
-  export GITHUB_TOKEN="$(cat /run/secrets/GITHUB_TOKEN)" && \
+RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN,required=true \
   export DEBGET_TOKEN="$GITHUB_TOKEN" && \
   chmod +x ubuntu-toolbox-salim.sh distrobox-shims.sh \
   && /distrobox-shims.sh \
