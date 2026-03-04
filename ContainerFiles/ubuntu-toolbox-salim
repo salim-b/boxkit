@@ -48,3 +48,6 @@ RUN rm \
   /distrobox-shims.sh \
   /ubuntu-toolbox-salim.sh \
   /ubuntu-toolbox-salim.packages
+
+ENV DEBGET_TOKEN= \
+    GITHUB_TOKEN=
