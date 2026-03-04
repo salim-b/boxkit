@@ -33,7 +33,7 @@ jobs:
     steps:
       # Remove unused stuff to free disk space
       - name: Free Disk Space
-        uses: endersonmenezes/free-disk-space@b40e4c897158bd5efbb48f990ed6718db182959b
+        uses: endersonmenezes/free-disk-space@7901478139cff6e9d44df5972fd8ab8fcade4db1
         with:
           remove_android: true
           remove_dotnet: true
