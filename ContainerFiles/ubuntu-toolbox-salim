@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1.11.0
-
 # base image on Universal Blue's ubuntu-toolbox, cf. https://github.com/ublue-os/toolboxes/pkgs/container/ubuntu-toolbox
 FROM ghcr.io/ublue-os/ubuntu-toolbox:latest
 
