@@ -89,8 +89,11 @@ curl --location \
   && rm google-chrome-stable_current_amd64.deb
 
 # install additional CLI tools via mise
-mise use --global github:casey/just
+mise use --global github:block/goose
 mise use --global github:sh-cho/idt
+mise use --global github:casey/just
+mise use --global github:qltysh/qlty
+mise use --global github:railwayapp/railpack
 ## set root user's mise config system-wide
 mkdir --parents /etc/mise && mv "$HOME/.config/mise/config.toml" /etc/mise/config.toml
 
