@@ -1,4 +1,5 @@
 # boxkit
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/ublue-os/boxkit/badge)](https://scorecard.dev/viewer/?uri=github.com/ublue-os/boxkit)
 
 [![build-boxkit](https://github.com/salim-b/boxkit/actions/workflows/build-boxkit.yml/badge.svg)](https://github.com/salim-b/boxkit/actions/workflows/build-boxkit.yml)
 
