@@ -1,4 +1,5 @@
 # general utilities
+jq
 apt-file
 gh
 git-lfs
