@@ -93,6 +93,8 @@ mise use --global github:casey/just
 mise use --global github:sh-cho/idt
 ## set root user's mise config system-wide
 mkdir --parents /etc/mise && mv "$HOME/.config/mise/config.toml" /etc/mise/config.toml
+## make mise data dir primary user owned (to allow post-hoc tool installations)
+chown -R 1000:1000 "${MISE_DATA_DIR}"
 
 # remove APT cache
 rm --force --recursive /var/lib/apt/lists/*
