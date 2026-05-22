@@ -51,6 +51,7 @@ rig add release
 #   && rm deb-get_*.deb
 
 # install deb-get (latest `main` branch revision; deb-get releases are published irregularly and often lack behind the latest Ubuntu LTS release)
+# TODO: remove the `sd '^CODENAMES_SUPPORTED=...'` line once https://github.com/wimpysworld/deb-get/pull/1801 has landed
 curl --location \
      --create-dirs \
      --output-dir=/tmp/deb-get-build \
@@ -58,7 +59,9 @@ curl --location \
      'https://github.com/wimpysworld/deb-get/archive/refs/heads/main.zip' \
   && pushd /tmp/deb-get-build \
   && unzip main.zip \
-  && cd deb-get-main/docs \
+  && cd deb-get-main \
+  && sd '^CODENAMES_SUPPORTED="(?!.*?\bresolute\b)(.*?)"$' 'CODENAMES_SUPPORTED="$1 resolute"' 01-main/packages/dra 01-main/packages/rstudio
+  && cd docs \
   && make install \
   && popd \
   && rm --recursive --force /tmp/deb-get-build
