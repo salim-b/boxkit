@@ -66,7 +66,7 @@ curl --location \
   && sd '(^CODENAMES_SUPPORTED="[^"]+)' '$1 resolute' 01-main/packages/dra 01-main/packages/rstudio \
   && cd docs \
   && make install \
-  && echo "deb-get 1 github" | tee /etc/deb-get/installed > /dev/null \
+  && mkdir /etc/deb-get && echo "deb-get 1 github" > /etc/deb-get/installed \
   && popd \
   && rm --recursive --force /tmp/deb-get-build
 
