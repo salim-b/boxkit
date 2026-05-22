@@ -4,7 +4,7 @@ FROM ghcr.io/ublue-os/ubuntu-toolbox:latest
 # add standard labels, cf. https://specs.opencontainers.org/image-spec/annotations/#pre-defined-annotation-keys
 LABEL com.github.containers.toolbox="true" \
       org.opencontainers.image.title="ubuntu-toolbox-salim" \
-      org.opencontainers.image.description="A cloud-native toolbox/distrobox image powered by Ubuntu, tailored to Salim's R development needs" \
+      org.opencontainers.image.description="A cloud-native toolbox/distrobox image powered by Ubuntu, tailored to Salim's development needs" \
       org.opencontainers.image.authors="Salim B <containers@salim.space>" \
       org.opencontainers.image.source="https://github.com/salim-b/boxkit" \
       org.opencontainers.image.licenses="AGPL-3.0-or-later"
