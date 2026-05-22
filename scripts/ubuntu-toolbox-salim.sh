@@ -51,9 +51,7 @@ rig add release
 #   && rm deb-get_*.deb
 
 # install deb-get (latest `main` branch revision; deb-get releases are published irregularly and often lack behind the latest Ubuntu LTS release)
-# TODO:
-# - remove the `sd ...` lines once https://github.com/wimpysworld/deb-get/pull/1801 has landed
-# - remove the `echo "deb-get 1 github" | tee /etc/deb-get/installed > /dev/null` line once https://github.com/wimpysworld/deb-get/pull/1883 has landed
+# TODO: remove the `mkdir /etc/deb-get && echo "deb-get 1 github" > /etc/deb-get/installed` line once https://github.com/wimpysworld/deb-get/pull/1883 has landed
 curl --location \
      --create-dirs \
      --output-dir=/tmp/deb-get-build \
@@ -61,23 +59,24 @@ curl --location \
      'https://github.com/wimpysworld/deb-get/archive/refs/heads/main.zip' \
   && pushd /tmp/deb-get-build \
   && unzip main.zip \
-  && cd deb-get-main \
-  && sd '(^CODENAMES_SUPPORTED=".*?) ?resolute' '$1' 01-main/packages/dra 01-main/packages/rstudio \
-  && sd '(^CODENAMES_SUPPORTED="[^"]+)' '$1 resolute' 01-main/packages/dra 01-main/packages/rstudio \
-  && cd docs \
+  && cd deb-get-main/docs \
   && make install \
   && mkdir /etc/deb-get && echo "deb-get 1 github" > /etc/deb-get/installed \
   && popd \
   && rm --recursive --force /tmp/deb-get-build
 
 # install additional DEB packages via deb-get
-deb-get update && deb-get install \
-  dra \
-  goose \
-  mise \
-  pandoc \
-  quarto \
-  rstudio
+# TODO: remove the `sd '(^CODENAMES_SUPPORTED=...` lines once https://github.com/wimpysworld/deb-get/pull/1801 has landed
+deb-get update \
+  && sd '(^CODENAMES_SUPPORTED=".*?) ?resolute' '$1' /etc/deb-get/01-main.d/dra /etc/deb-get/01-main.d/rstudio \
+  && sd '(^CODENAMES_SUPPORTED="[^"]+)' '$1 resolute' /etc/deb-get/01-main.d/dra /etc/deb-get/01-main.d/rstudio \
+  && deb-get install \
+    dra \
+    goose \
+    mise \
+    pandoc \
+    quarto \
+    rstudio
 
 # install additional DEB packages downloaded via dra
 ## Ungoogled Chromium
