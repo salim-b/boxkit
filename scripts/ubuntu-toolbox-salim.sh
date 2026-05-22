@@ -61,7 +61,7 @@ deb-get update && deb-get install \
 
 # install additional DEB packages downloaded via dra
 ## Ungoogled Chromium
-## COMMENTED OUT since Ubuntu jammy doesn't include new enough dependencies
+## COMMENTED OUT since the `berkley4/ungoogled-chromium-debian` project has stopped releases; a (moderaterly compelling) alternative source would be https://xtradeb.net/apps/ungoogled-chromium/
 # dra download --select "ungoogled-chromium_*_amd64.deb" berkley4/ungoogled-chromium-debian \
 #  && apt-get install ./ungoogled-chromium_*_amd64.deb
 # dra download --select "ungoogled-chromium-driver_*_amd64.deb" berkley4/ungoogled-chromium-debian \
