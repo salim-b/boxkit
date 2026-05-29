@@ -51,7 +51,6 @@ rig add release
 #   && rm deb-get_*.deb
 
 # install deb-get (latest `main` branch revision; deb-get releases are published irregularly and often lack behind the latest Ubuntu LTS release)
-# TODO: remove the `mkdir /etc/deb-get && echo "deb-get 1 github" > /etc/deb-get/installed` line once https://github.com/wimpysworld/deb-get/pull/1883 has landed
 curl --location \
      --create-dirs \
      --output-dir=/tmp/deb-get-build \
@@ -61,7 +60,6 @@ curl --location \
   && unzip main.zip \
   && cd deb-get-main/docs \
   && make install \
-  && mkdir /etc/deb-get && echo "deb-get 1 github" > /etc/deb-get/installed \
   && popd \
   && rm --recursive --force /tmp/deb-get-build
 
