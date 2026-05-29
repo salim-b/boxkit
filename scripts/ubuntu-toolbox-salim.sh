@@ -59,7 +59,7 @@ curl --location \
   && pushd /tmp/deb-get-build \
   && unzip main.zip \
   && cd deb-get-main/docs \
-  && make install \
+  && PREFIX=/usr/local make install \
   && popd \
   && rm --recursive --force /tmp/deb-get-build
 
