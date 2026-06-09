@@ -80,7 +80,6 @@ pkgs_cran <- c(
   "ggiraph",
   "ggplot2",
   "ggrepel",
-  "ggstream",
   "gh",
   "git2r",
   "gitlabr",
@@ -142,7 +141,7 @@ pkgs_cran <- c(
   "prettyunits",
   "purrr",
   "qpdf",
-  "qs",
+  "qs2",
   "quarto",
   "R6",
   "ragg",
@@ -238,8 +237,7 @@ pak::pkg_install(pkg = c("github::mattflor/chorddiag",
                          "github::nx10/httpgd",
                          "github::hrbrmstr/qrencoder",
                          "github::LudvigOlsen/splitChunk",
-                         "github::politanch/swissdd",
-                         "github::ManuelHentschel/vscDebugger"),
+                         "github::politanch/swissdd"),
                  ask = FALSE)
 ## own packages
 ### TODO: use `pak::pkg_install()` once https://github.com/r-lib/pak/issues/796 is resolved
