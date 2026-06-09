@@ -46,6 +46,8 @@ gsfonts
 libabsl-dev
 ### archive
 libarchive-dev
+### curl
+libcurl4-openssl-dev
 ### imager
 libfftw3-dev
 ### textshaping
