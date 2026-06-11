@@ -9,6 +9,10 @@ on:
       - main
     paths-ignore: # don't rebuild on documentation change
       - '**.md'
+      - '.editorconfig'
+      - '.github/**'
+      - 'LICENSE'
+      - 'renovate.json'
   schedule:
     - cron: '0 0 * * TUE'
 
