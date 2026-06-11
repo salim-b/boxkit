@@ -29,6 +29,7 @@ COPY --link                               ../scripts/ubuntu-toolbox-salim.sh    
 COPY --link                               ../packages/ubuntu-toolbox-salim.packages /
 
 # run the setup scripts
+ARG CACHEBUST=0
 RUN --mount=type=secret,id=GITHUB_TOKEN \
   export GITHUB_TOKEN="$(cat /run/secrets/GITHUB_TOKEN)" && \
   export DEBGET_TOKEN="$GITHUB_TOKEN" && \

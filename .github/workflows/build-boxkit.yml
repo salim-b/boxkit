@@ -105,10 +105,12 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           oci: true
           layers: true
+          build-args: |
+            CACHEBUST=${{ github.run_id }}
           extra-args: |
-            --secret=id=GITHUB_TOKEN,src=/tmp/github_token.txt
             --cache-from=${{ steps.cache_registry_case.outputs.lowercase }}
             --cache-to=${{ steps.cache_args.outputs.cache_to }}
+            --secret=id=GITHUB_TOKEN,src=/tmp/github_token.txt
 
       # Work around bug where capital letters in your GitHub username make it impossible to push to GHCR.
       # https://github.com/macbre/push-to-ghcr/issues/12
