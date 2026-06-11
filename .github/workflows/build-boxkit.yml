@@ -88,10 +88,8 @@ jobs:
         id: cache_args
         shell: bash
         run: |
-          echo "cache_from=--cache-from=${{ steps.cache_registry_case.outputs.lowercase }}:${{ matrix.containerfile }}" >> "$GITHUB_OUTPUT"
-
           if [[ "${{ github.event_name }}" != "pull_request" || "${{ github.event.pull_request.head.repo.fork }}" != "true" ]]; then
-            echo "cache_to=--cache-to=${{ steps.cache_registry_case.outputs.lowercase }}:${{ matrix.containerfile }}" >> "$GITHUB_OUTPUT"
+            echo "cache_to=${{ steps.cache_registry_case.outputs.lowercase }}:${{ matrix.containerfile }}" >> "$GITHUB_OUTPUT"
           else
             echo "cache_to=" >> "$GITHUB_OUTPUT"
           fi
@@ -109,8 +107,8 @@ jobs:
           layers: true
           extra-args: |
             --secret=id=GITHUB_TOKEN,src=/tmp/github_token.txt
-             ${{ steps.cache_args.outputs.cache_from }}
-             ${{ steps.cache_args.outputs.cache_to }}
+            --cache-from=${{ steps.cache_registry_case.outputs.lowercase }}:${{ matrix.containerfile }}
+            --cache-to=${{ steps.cache_args.outputs.cache_to }}
 
       # Work around bug where capital letters in your GitHub username make it impossible to push to GHCR.
       # https://github.com/macbre/push-to-ghcr/issues/12
