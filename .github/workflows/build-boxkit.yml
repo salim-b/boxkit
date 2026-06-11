@@ -19,6 +19,7 @@ on:
 env:
     IMAGE_TAGS: latest
     IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
+    IMAGE_CACHE_REPOSITORY: buildah-cache
 
 jobs:
   push-ghcr:
@@ -69,6 +70,32 @@ jobs:
       - name: Create Secret File
         run: echo "${{ secrets.GITHUB_TOKEN }}" > /tmp/github_token.txt
 
+      - name: Lowercase Cache Registry
+        id: cache_registry_case
+        uses: ASzc/change-string-case-action@ecd1412d078f2e06e9eedcbaa6fcd988151c3f82 # v8
+        with:
+          string: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_CACHE_REPOSITORY }}
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set Buildah Cache Args
+        id: cache_args
+        shell: bash
+        run: |
+          echo "cache_from=--cache-from=${{ steps.cache_registry_case.outputs.lowercase }}:${{ matrix.containerfile }}" >> "$GITHUB_OUTPUT"
+
+          if [[ "${{ github.event_name }}" != "pull_request" || "${{ github.event.pull_request.head.repo.fork }}" != "true" ]]; then
+            echo "cache_to=--cache-to=${{ steps.cache_registry_case.outputs.lowercase }}:${{ matrix.containerfile }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "cache_to=" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build Image
         id: build_image
         uses: redhat-actions/buildah-build@061ffd31bb5c3f8733a6f9bbdf00a9fb02eb708c # v2    
@@ -79,10 +106,13 @@ jobs:
           tags: ${{ env.IMAGE_TAGS }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: true
+          layers: true
           extra-args: |
             --secret=id=GITHUB_TOKEN,src=/tmp/github_token.txt
+             ${{ steps.cache_args.outputs.cache_from }}
+             ${{ steps.cache_args.outputs.cache_to }}
 
-      # Workaround bug where capital letters in your GitHub username make it impossible to push to GHCR.
+      # Work around bug where capital letters in your GitHub username make it impossible to push to GHCR.
       # https://github.com/macbre/push-to-ghcr/issues/12
       - name: Lowercase Registry
         id: registry_case
@@ -104,13 +134,6 @@ jobs:
           registry: ${{ steps.registry_case.outputs.lowercase }}
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       # Sign container
       - name: Install cosign
