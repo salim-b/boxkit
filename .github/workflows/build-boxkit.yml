@@ -67,7 +67,7 @@ jobs:
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/ublue-os/boxkit/main/README.md
 
       # Build image using Buildah action
-      - name: Create Secret File
+      - name: Create Secrets File
         run: echo "${{ secrets.GITHUB_TOKEN }}" > /tmp/github_token.txt
 
       - name: Lowercase Cache Registry
@@ -83,16 +83,20 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set Buildah Cache Args
-        id: cache_args
+      
+      - name: Set Buildah `extra-args`
+        id: buildah_args
         shell: bash
         run: |
-          if [[ "${{ github.event_name }}" != "pull_request" || "${{ github.event.pull_request.head.repo.fork }}" != "true" ]]; then
-            echo "cache_to=${{ steps.cache_registry_case.outputs.lowercase }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "cache_to=" >> "$GITHUB_OUTPUT"
-          fi
+          {
+            echo 'extra_args<<EOF'
+            echo '--secret=id=GITHUB_TOKEN,src=/tmp/github_token.txt'
+            echo '--cache-from=${{ steps.cache_registry_case.outputs.lowercase }}'
+            if [[ "${{ github.event_name }}" != "pull_request" || "${{ github.event.pull_request.head.repo.fork }}" != "true" ]]; then
+              echo '--cache-to=${{ steps.cache_registry_case.outputs.lowercase }}'
+            fi
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
 
       - name: Build Image
         id: build_image
@@ -107,10 +111,7 @@ jobs:
           layers: true
           build-args: |
             CACHEBUST=${{ github.run_id }}
-          extra-args: |
-            --cache-from=${{ steps.cache_registry_case.outputs.lowercase }}
-            --cache-to=${{ steps.cache_args.outputs.cache_to }}
-            --secret=id=GITHUB_TOKEN,src=/tmp/github_token.txt
+          extra-args: ${{ steps.buildah_args.outputs.extra_args }}
 
       # Work around bug where capital letters in your GitHub username make it impossible to push to GHCR.
       # https://github.com/macbre/push-to-ghcr/issues/12
@@ -121,7 +122,7 @@ jobs:
           string: ${{ env.IMAGE_REGISTRY }}
 
       # Push the image to GHCR (Image Registry)
-      - name: Push To GHCR
+      - name: Push to GHCR
         uses: redhat-actions/push-to-registry@5ed88d269cf581ea9ef6dd6806d01562096bee9c # v2
         if: github.event_name != 'pull_request'
         id: push
