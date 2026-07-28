@@ -72,13 +72,7 @@ jobs:
       - name: Create Secrets File
         run: echo "${{ secrets.GITHUB_TOKEN }}" > /tmp/github_token.txt
 
-      - name: Lowercase Cache Registry
-        id: cache_registry_case
-        uses: ASzc/change-string-case-action@ecd1412d078f2e06e9eedcbaa6fcd988151c3f82 # v8
-        with:
-          string: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_CACHE_REPOSITORY }}
-
-      - name: Log in to GitHub Container Registry
+      - name: Log in to GHCR
         if: github.event_name != 'pull_request' || !github.event.pull_request.head.repo.fork
         uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
         with:
@@ -93,9 +87,9 @@ jobs:
           {
             echo 'extra_args<<EOF'
             echo '--secret=id=GITHUB_TOKEN,src=/tmp/github_token.txt'
-            echo '--cache-from=${{ steps.cache_registry_case.outputs.lowercase }}'
+            echo '--cache-from=${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_CACHE_REPOSITORY }}'
             if [[ "${{ github.event_name }}" != "pull_request" || "${{ github.event.pull_request.head.repo.fork }}" != "true" ]]; then
-              echo '--cache-to=${{ steps.cache_registry_case.outputs.lowercase }}'
+              echo '--cache-to=${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_CACHE_REPOSITORY }}'
             fi
             echo 'EOF'
           } >> "$GITHUB_OUTPUT"
@@ -115,38 +109,18 @@ jobs:
             CACHEBUST=${{ github.run_id }}
           extra-args: ${{ steps.buildah_args.outputs.extra_args }}
 
-      # Work around bug where capital letters in your GitHub username make it impossible to push to GHCR.
-      # https://github.com/macbre/push-to-ghcr/issues/12
-      - name: Lowercase Registry
-        id: registry_case
-        uses: ASzc/change-string-case-action@ecd1412d078f2e06e9eedcbaa6fcd988151c3f82 # v8
-        with:
-          string: ${{ env.IMAGE_REGISTRY }}
-
-      # Push the image to GHCR (Image Registry)
+      # Push image to GHCR
       - name: Push to GHCR
-        uses: redhat-actions/push-to-registry@5ed88d269cf581ea9ef6dd6806d01562096bee9c # v2
+        uses: redhat-actions/push-to-registry@94ade333c38ecc0e60e94785125d9a52ca423b37 # v3.0.0
         if: github.event_name != 'pull_request'
         id: push
         with:
           image: ${{ steps.build_image.outputs.image }}
           tags: ${{ steps.build_image.outputs.tags }}
-          registry: ${{ steps.registry_case.outputs.lowercase }}
+          registry: ${{ env.IMAGE_REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ github.token }}
-
-      # Sign container
-      - name: Install cosign
-        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
-
-      - name: Sign container image
-        if: github.event_name != 'pull_request'
-        run: |
-          cosign sign -y --key env://COSIGN_PRIVATE_KEY ${{ steps.registry_case.outputs.lowercase }}/${{ matrix.containerfile }}@${TAGS}
-        env:
-          TAGS: ${{ steps.push.outputs.digest }}
-          COSIGN_EXPERIMENTAL: false
-          COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
+          sigstore-private-key: ${{ secrets.SIGNING_SECRET }}
 
       - name: Echo outputs
         run: |
