@@ -37,8 +37,8 @@ jobs:
         containerfile:
           - ubuntu-toolbox-salim
     steps:
-      # Remove unused stuff to free disk space
-      - name: Free Disk Space
+      # Remove unused stuff to free disk space on runner
+      - name: Free disk space
         uses: endersonmenezes/free-disk-space@7901478139cff6e9d44df5972fd8ab8fcade4db1
         with:
           remove_android: true
@@ -59,7 +59,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       # Build metadata
-      - name: Image Metadata
+      - name: Prepare metadata
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
         id: meta
         with:
@@ -68,8 +68,8 @@ jobs:
           labels: |
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/salim-b/boxkit/main/README.md
 
-      # Build image using Buildah action
-      - name: Create Secrets File
+      # Build image using Buildah
+      - name: Create secrets file
         run: echo "${{ secrets.GITHUB_TOKEN }}" > /tmp/github_token.txt
 
       - name: Log in to GHCR
@@ -94,7 +94,7 @@ jobs:
             echo 'EOF'
           } >> "$GITHUB_OUTPUT"
 
-      - name: Build Image
+      - name: Build image
         id: build_image
         uses: redhat-actions/buildah-build@3a51aade9afa17e5c78256bcbe2e1ee08c7b995b # v3.0.2
         with:
