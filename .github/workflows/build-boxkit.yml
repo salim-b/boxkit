@@ -110,6 +110,15 @@ jobs:
           extra-args: ${{ steps.buildah_args.outputs.extra_args }}
 
       # Push image to GHCR
+      # TODO: Submit PR to `redhat-actions/push-to-registry` to do this
+      - name: Enable Sigstore attachments
+        run: |
+          sudo mkdir -p /etc/containers/registries.d
+          cat <<EOF | sudo tee /etc/containers/registries.d/default.yaml
+          default-docker:
+            use-sigstore-attachments: true
+          EOF
+
       - name: Push to GHCR
         uses: redhat-actions/push-to-registry@94ade333c38ecc0e60e94785125d9a52ca423b37 # v3.0.0
         if: github.event_name != 'pull_request'
