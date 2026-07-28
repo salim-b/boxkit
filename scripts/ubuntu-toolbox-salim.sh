@@ -44,24 +44,24 @@ mkdir -p /opt/rust \
 rig add release
 
 # install deb-get (latest release)
-# curl --location --header "Authorization: Bearer ${GITHUB_TOKEN}" --silent 'https://api.github.com/repos/wimpysworld/deb-get/releases/latest' \
-#   | yq --input-format=json --unwrapScalar=true '.assets[] | select(.name | test("^deb-get_.+_all\\.deb$")).browser_download_url' \
-#   | xargs --max-args=1 curl --location --remote-name --silent \
-#   && apt-get install --assume-yes ./deb-get_*.deb \
-#   && rm deb-get_*.deb
+curl --location --header "Authorization: Bearer ${GITHUB_TOKEN}" --silent 'https://api.github.com/repos/wimpysworld/deb-get/releases/latest' \
+  | yq --input-format=json --unwrapScalar=true '.assets[] | select(.name | test("^deb-get_.+_all\\.deb$")).browser_download_url' \
+  | xargs --max-args=1 curl --location --remote-name --silent \
+  && apt-get install --assume-yes ./deb-get_*.deb \
+  && rm deb-get_*.deb
 
 # install deb-get (latest `main` branch revision; deb-get releases are published irregularly and often lack behind the latest Ubuntu LTS release)
-curl --location \
-     --create-dirs \
-     --output-dir=/tmp/deb-get-build \
-     --remote-name \
-     'https://github.com/wimpysworld/deb-get/archive/refs/heads/main.zip' \
-  && pushd /tmp/deb-get-build \
-  && unzip main.zip \
-  && cd deb-get-main/docs \
-  && PREFIX=/usr/local make install \
-  && popd \
-  && rm --recursive --force /tmp/deb-get-build
+# curl --location \
+#      --create-dirs \
+#      --output-dir=/tmp/deb-get-build \
+#      --remote-name \
+#      'https://github.com/wimpysworld/deb-get/archive/refs/heads/main.zip' \
+#   && pushd /tmp/deb-get-build \
+#   && unzip main.zip \
+#   && cd deb-get-main/docs \
+#   && PREFIX=/usr/local make install \
+#   && popd \
+#   && rm --recursive --force /tmp/deb-get-build
 
 # install additional DEB packages via deb-get
 # TODO: remove the `sd '(^CODENAMES_SUPPORTED=...` lines once https://github.com/wimpysworld/deb-get/pull/1801 has landed
