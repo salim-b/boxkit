@@ -6,6 +6,9 @@ set -euo pipefail
 # set env vars
 export DEBIAN_FRONTEND=noninteractive
 
+# add PPAs
+add-apt-repository ppa:git-core/ppa
+
 # add additional APT package sources
 curl --location \
      --output-dir /etc/apt/trusted.gpg.d \
