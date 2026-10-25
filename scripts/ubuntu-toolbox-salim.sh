@@ -10,12 +10,23 @@ export DEBIAN_FRONTEND=noninteractive
 add-apt-repository ppa:git-core/ppa
 
 # add additional APT package sources
-curl --location \
-     --output-dir /etc/apt/trusted.gpg.d \
+## Claude Desktop, cf. https://code.claude.com/docs/en/desktop-linux
+curl --fail \
+     --location \
+     --output=/etc/apt/keyrings/claude-desktop.asc \
+     --show-error \
+     --silent \
+     https://downloads.claude.ai/claude-desktop/key.asc
+echo "deb [arch=amd64,arm64 signed-by=/etc/apt/keyrings/claude-desktop.asc] https://downloads.claude.ai/claude-desktop/apt/stable stable main" >/etc/apt/sources.list.d/claude-desktop.list
+## rig, cf. https://rig.r-lib.org/install.html
+curl --fail \
+     --location \
+     --output-dir=/etc/apt/keyrings \
      --remote-name \
+     --show-error \
      --silent \
      https://rig.r-pkg.org/deb/rig.gpg
-echo 'deb http://rig.r-pkg.org/deb rig main' > /etc/apt/sources.list.d/rig.list
+echo 'deb [signed-by=/etc/apt/keyrings/rig.gpg] http://rig.r-pkg.org/deb rig main' > /etc/apt/sources.list.d/rig.list
 
 # update DEB packages via APT
 apt-get update && apt-get upgrade --assume-yes
