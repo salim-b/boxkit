@@ -114,6 +114,7 @@ curl --location \
   && rm google-chrome-stable_current_amd64.deb
 
 # install additional CLI tools via mise
+mise use --global github:aaif-goose/goose
 mise use --global github:casey/just
 mise use --global github:sh-cho/idt
 ## set root user's mise config system-wide
