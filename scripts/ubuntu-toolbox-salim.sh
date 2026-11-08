@@ -80,8 +80,8 @@ curl --location --header "Authorization: Bearer ${GITHUB_TOKEN}" --silent 'https
 # install additional DEB packages via deb-get
 # TODO: remove the `sd '(^CODENAMES_SUPPORTED=...` lines once https://github.com/wimpysworld/deb-get/pull/1801 has landed
 deb-get update \
-  && sd '(^CODENAMES_SUPPORTED=".*?) ?resolute' '$1' /etc/deb-get/01-main.d/dra /etc/deb-get/01-main.d/rstudio \
-  && sd '(^CODENAMES_SUPPORTED="[^"]+)' '$1 resolute' /etc/deb-get/01-main.d/dra /etc/deb-get/01-main.d/rstudio \
+  && sd '(^CODENAMES_SUPPORTED=".*?) ?resolute' '$1' /etc/deb-get/01-main.d/dra \
+  && sd '(^CODENAMES_SUPPORTED="[^"]+)' '$1 resolute' /etc/deb-get/01-main.d/dra \
   && deb-get install \
     dra \
     goose \
