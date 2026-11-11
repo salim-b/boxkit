@@ -115,8 +115,6 @@ curl --location \
 
 # install additional CLI tools via mise
 mise use --global github:aaif-goose/goose
-mise use --global github:casey/just
-mise use --global github:sh-cho/idt
 ## set root user's mise config system-wide
 mkdir --parents /etc/mise && mv "$HOME/.config/mise/config.toml" /etc/mise/config.toml
 ## make mise data dir primary user owned (to allow post-hoc tool installations)
