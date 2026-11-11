@@ -13,7 +13,7 @@ LABEL com.github.containers.toolbox="true" \
 ENV RUSTUP_HOME=/opt/rust/rustup \
     CARGO_HOME=/opt/rust/cargo \
     MISE_DATA_DIR=/opt/mise
-ENV PATH=$CARGO_HOME/bin:$MISE_DATA_DIR/shims:$PATH
+ENV PATH=$CARGO_HOME/bin:$PATH
 
 # add required binaries not available via APT directly from upstream container images
 COPY --link --from=docker.io/mikefarah/yq /usr/bin/yq                               /usr/local/bin/yq
