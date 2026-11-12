@@ -115,6 +115,8 @@ curl --location \
 
 # install additional CLI tools via mise
 mise use --global github:aaif-goose/goose
+## change mise settings
+mise settings locked_scopes project
 ## set root user's mise config system-wide
 mkdir --parents /etc/mise && mv "$HOME/.config/mise/config.toml" /etc/mise/config.toml
 ## make mise data dir primary user owned (to allow post-hoc tool installations)
