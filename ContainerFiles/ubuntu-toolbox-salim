@@ -37,6 +37,9 @@ RUN --mount=type=secret,id=GITHUB_TOKEN \
   && /distrobox-shims.sh \
   && /ubuntu-toolbox-salim.sh
 
+# create bin symlinks to selected mise tools (so they work without mise activation/shims)
+RUN ln -sf /opt/mise/shims/goose /usr/local/bin/goose
+
 # install the runtime scripts
 RUN install --target-directory=/usr/local/bin \
   /install_rpkgs.R \
