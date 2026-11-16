@@ -6,6 +6,7 @@ git-lfs
 # (attempt to make already-unlocked host keyring accessible in container)
 libpam-gnome-keyring
 sd
+snapd
 software-properties-common
 whois
 
