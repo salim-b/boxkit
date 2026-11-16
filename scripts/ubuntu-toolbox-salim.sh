@@ -115,6 +115,8 @@ curl --location \
 
 # install additional CLI tools via mise
 mise use --global github:aaif-goose/goose
+mise use --global go@latest
+mise use --global go:github.com/entireio/external-agents/agents/entire-agent-goose/cmd/entire-agent-goose@latest
 ## change mise settings
 mise settings locked_scopes project
 ## set root user's mise config system-wide
