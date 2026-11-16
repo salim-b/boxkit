@@ -6,6 +6,9 @@ set -euo pipefail
 # set env vars
 export DEBIAN_FRONTEND=noninteractive
 
+# install additional snap packages
+snap install go --classic
+
 # add PPAs
 add-apt-repository ppa:git-core/ppa
 
@@ -121,6 +124,9 @@ mise settings locked_scopes project
 mkdir --parents /etc/mise && mv "$HOME/.config/mise/config.toml" /etc/mise/config.toml
 ## make mise data dir primary user owned (to allow post-hoc tool installations)
 chown --recursive 1000:1000 "${MISE_DATA_DIR}"
+
+# build additional tools unavailable from any package manager from source
+go install github.com/entireio/external-agents/agents/entire-agent-goose/cmd/entire-agent-goose@latest
 
 # remove APT cache
 rm --force --recursive /var/lib/apt/lists/*
