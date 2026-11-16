@@ -112,13 +112,13 @@ curl --location \
      "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" \
   && apt-get install --assume-yes ./google-chrome-stable_current_amd64.deb \
   && rm google-chrome-stable_current_amd64.deb
-
-# install additional CLI tools via mise
+ 
+# change mise settings install additional CLI tools
+mise settings locked_scopes project
+mise settings minimum_release_age 0s # required for the `@latest` ref below
 mise use --global github:aaif-goose/goose
 mise use --global go@latest
 mise use --global go:github.com/entireio/external-agents/agents/entire-agent-goose/cmd/entire-agent-goose@latest
-## change mise settings
-mise settings locked_scopes project
 ## set root user's mise config system-wide
 mkdir --parents /etc/mise && mv "$HOME/.config/mise/config.toml" /etc/mise/config.toml
 ## make mise data dir primary user owned (to allow post-hoc tool installations)
