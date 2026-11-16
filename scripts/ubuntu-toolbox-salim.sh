@@ -42,9 +42,6 @@ curl --location \
 # install additional DEB packages via APT
 grep --invert-match '^#' ./ubuntu-toolbox-salim.packages | xargs apt-get install --assume-yes
 
-# install additional snap packages
-snap install go --classic
-
 # install Rust
 mkdir -p /opt/rust \
   && curl --proto '=https' --tlsv1.3 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path \
@@ -117,6 +114,8 @@ curl --location \
   && rm google-chrome-stable_current_amd64.deb
 
 # install additional CLI tools via mise
+mise use --global go@latest
+mise use --global go:github.com/entireio/external-agents/agents/entire-agent-goose/cmd/entire-agent-goose@latest
 mise use --global github:aaif-goose/goose
 ## change mise settings
 mise settings locked_scopes project
@@ -124,9 +123,6 @@ mise settings locked_scopes project
 mkdir --parents /etc/mise && mv "$HOME/.config/mise/config.toml" /etc/mise/config.toml
 ## make mise data dir primary user owned (to allow post-hoc tool installations)
 chown --recursive 1000:1000 "${MISE_DATA_DIR}"
-
-# build additional tools unavailable from any package manager from source
-go install github.com/entireio/external-agents/agents/entire-agent-goose/cmd/entire-agent-goose@latest
 
 # remove APT cache
 rm --force --recursive /var/lib/apt/lists/*
