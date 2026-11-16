@@ -38,6 +38,8 @@ RUN --mount=type=secret,id=GITHUB_TOKEN \
   && /ubuntu-toolbox-salim.sh
 
 # create bin symlinks to selected mise tools (so they work without mise activation/shims)
+RUN ln -sf /opt/mise/shims/go                 /usr/local/bin/go
+RUN ln -sf /opt/mise/shims/gofmt              /usr/local/bin/gofmt
 RUN ln -sf /opt/mise/shims/goose              /usr/local/bin/goose
 RUN ln -sf /opt/mise/shims/entire-agent-goose /usr/local/bin/entire-agent-goose
 
