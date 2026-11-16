@@ -114,6 +114,10 @@ curl --location \
   && rm google-chrome-stable_current_amd64.deb
 
 # install additional CLI tools via mise
+## allow installing freshly released tools: mise delays releases younger than 24h by
+## default (supply-chain protection), which would break floating `@latest` installs of
+## actively developed tools (their newest release is typically younger than 24h)
+mise settings minimum_release_age 0s
 mise use --global github:aaif-goose/goose
 mise use --global go@latest
 mise use --global go:github.com/entireio/external-agents/agents/entire-agent-goose/cmd/entire-agent-goose@latest
