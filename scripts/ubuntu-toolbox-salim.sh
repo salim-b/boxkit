@@ -116,7 +116,7 @@ curl --location \
 # change mise settings install additional CLI tools
 mise settings locked_scopes project
 mise settings minimum_release_age 0s # required for the `@latest` ref below
-mise use --global github:aaif-goose/goose
+mise use --global github:aaif-goose/goose@latest
 mise use --global go@latest
 mise use --global go:github.com/entireio/external-agents/agents/entire-agent-goose/cmd/entire-agent-goose@latest
 ## set root user's mise config system-wide
