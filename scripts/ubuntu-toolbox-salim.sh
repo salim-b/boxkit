@@ -5,6 +5,7 @@ set -euo pipefail
 
 # set env vars
 export DEBIAN_FRONTEND=noninteractive
+export MISE_FETCH_REMOTE_VERSIONS_TIMEOUT=3m # Go backend occasionally exceeds the default 20s timeout in CI, so we just give it ample time to finish
 
 # add PPAs
 add-apt-repository ppa:git-core/ppa
@@ -152,3 +153,4 @@ chmod a+r /etc/rstudio/themes/*
 
 # restore env vars
 unset -v DEBIAN_FRONTEND
+unset -v MISE_FETCH_REMOTE_VERSIONS_TIMEOUT

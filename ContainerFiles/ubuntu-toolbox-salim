@@ -55,4 +55,3 @@ RUN rm \
   /distrobox-shims.sh \
   /ubuntu-toolbox-salim.sh \
   /ubuntu-toolbox-salim.packages
-
